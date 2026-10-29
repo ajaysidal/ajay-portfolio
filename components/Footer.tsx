@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#1F2833] bg-[#0B0C10] py-12 px-6">
+    <footer className="border-t border-[#F8F9FA]/10 bg-[#0B0C10]/70 backdrop-blur-xl py-12 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center text-center space-y-6">
           <Link href="/" className="text-2xl font-bold text-[#F8F9FA] tracking-tight">
@@ -51,7 +51,7 @@ export default function Footer() {
               NZBN
             </a>
           </div>
-          <div className="pt-6 border-t border-[#1F2833] w-full">
+          <div className="pt-6 border-t border-[#F8F9FA]/10 w-full">
             <p className="text-[#aab3bd] text-xs">
               Auckland 1021, New Zealand · Built on a Sovereign AI ethos.
             </p>
