@@ -91,7 +91,7 @@ export default function Experience() {
                 transition={{ duration: 0.6, delay: eraIndex * 0.1 }}
                 className="relative pl-8 border-l-2 border-[#1F2833]"
             >
-              <div className="absolute -left-[9px] top-1 w-5 h-5 rounded-full bg-[#00A86B] shadow-[0_0_0_5px_rgba(0,168,101,0.25)]" />
+              <div className="absolute -left-[9px] top-1 w-5 h-5 rounded-full bg-[#D4AF37] shadow-[0_0_0_5px_rgba(212,175,55,0.25)]" />
               <span className="mono text-sm mb-2 block">{era.period}</span>
               <h3 className="text-2xl font-bold mb-6">{era.title}</h3>
 

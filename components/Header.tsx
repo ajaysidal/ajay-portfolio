@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const navLinks = [
   { id: "home", href: "/", label: "Home" },
   { id: "services", href: "/services", label: "Services" },
   { id: "case-studies", href: "/case-studies", label: "Case Studies" },
+  { id: "experience", href: "/experience", label: "Experience" },
+  { id: "education", href: "/education", label: "Education" },
   { id: "pricing", href: "/pricing", label: "Pricing" },
   { id: "book", href: "/book", label: "Book Consultation" },
   { id: "project-intake", href: "/project-intake", label: "Project Intake" },
@@ -17,33 +19,26 @@ const navLinks = [
 
 export default function Header() {
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0B0C10]"
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0B0C10]">
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold text-[#F8F9FA] tracking-tight">
           AS
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-8">
+        <div className="hidden lg:flex items-center gap-5 xl:gap-7">
           {navLinks.map((link) => (
             <Link
               key={link.id}
               href={link.href}
-              className="text-sm transition-colors duration-200 text-[#aab3bd] hover:text-[#D4AF37]"
+              className={`text-sm transition-colors duration-200 ${
+                pathname === link.href
+                  ? "text-[#D4AF37]"
+                  : "text-[#aab3bd] hover:text-[#D4AF37]"
+              }`}
             >
               {link.label}
             </Link>
@@ -52,7 +47,7 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-[#F8F9FA]"
+          className="lg:hidden text-[#F8F9FA]"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -83,19 +78,23 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden backdrop-blur-md bg-[#0B0C10]/95 border-t border-[#1F2833]">
-        <div className="px-6 py-4 space-y-3">
-          {navLinks.map((link) => (
-            <Link
-              key={link.id}
-              href={link.href}
-              className="block py-2 text-sm transition-colors duration-200 text-[#aab3bd] hover:text-[#D4AF37]"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+        <div className="lg:hidden backdrop-blur-md bg-[#0B0C10]/95 border-t border-[#1F2833]">
+          <div className="px-6 py-4 space-y-3">
+            {navLinks.map((link) => (
+              <Link
+                key={link.id}
+                href={link.href}
+                className={`block py-2 text-sm transition-colors duration-200 ${
+                  pathname === link.href
+                    ? "text-[#D4AF37]"
+                    : "text-[#aab3bd] hover:text-[#D4AF37]"
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </header>
