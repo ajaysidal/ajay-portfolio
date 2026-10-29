@@ -26,6 +26,11 @@ const eras = [
     title: "Healthcare & Logistics",
     roles: [
       {
+          {
+            id: "investment-operations-administrator",
+            title: "Investment Operations Administrator — ANZ",
+            date: "Jun 2024 – Mar 2025",
+          },
         id: "subcontractor-compliance-coordinator",
         title: "Subcontractor Compliance Coordinator — Ventia",
         date: "Nov 2023 – Feb 2024",
@@ -47,11 +52,6 @@ const eras = [
     period: "Foundation",
     title: "Banking & Operations",
     roles: [
-      {
-        id: "investment-operations-administrator",
-        title: "Investment Operations Administrator — ANZ",
-        date: "Jun 2024 – Mar 2025",
-      },
       {
         id: "operations-administration-manager",
         title: "Operations & Administration Manager — Avantee Ltd & The Positive Property Service",
