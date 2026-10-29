@@ -1,56 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  body {
-    background: #0B0C10;
-    color: #F8F9FA;
-    font-family: var(--font-body);
-  }
+@theme {
+  --color-bg-primary: #0B0C10;
+  --color-bg-secondary: #1F2833;
+  --color-text-primary: #F8F9FA;
+  --color-text-secondary: #aab3bd;
+  --color-gold: #D4AF37;
+  --font-body: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
-@layer utilities {
-  .glass {
-    background: rgba(248, 249, 250, 0.06);
-    border: 1px solid rgba(248, 249, 250, 0.14);
-    backdrop-filter: blur(14px);
-  }
+body {
+  background: linear-gradient(to bottom, #0B0C10, #1F2833);
+  color: #F8F9FA;
+  min-height: 100vh;
+}
 
-  .glass-tilt {
-    background: rgba(248, 249, 250, 0.06);
-    border: 1px solid rgba(248, 249, 250, 0.14);
-    border-radius: 20px;
-    backdrop-filter: blur(14px);
-    transition: transform .2s ease;
-    transform-style: preserve-3d;
-  }
+.mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
 
-  .glass-tilt:hover {
-    transform: perspective(800px) rotateY(5deg) rotateX(-5deg);
-  }
+.glass-tilt {
+  background: rgba(248, 249, 250, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(248, 249, 250, 0.1);
+  border-radius: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .mono {
-    font-family: var(--font-mono);
-    font-size: .78rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: #D4AF37;
-  }
-
-  .hl {
-    color: #D4AF37;
-  }
-
-  .hl2 {
-    color: #00A86B;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
+.glass-tilt:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
