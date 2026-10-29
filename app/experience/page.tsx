@@ -26,11 +26,11 @@ const eras = [
     title: "Healthcare & Logistics",
     roles: [
       {
-          {
-            id: "investment-operations-administrator",
-            title: "Investment Operations Administrator — ANZ",
-            date: "Jun 2024 – Mar 2025",
-          },
+        id: "investment-operations-administrator",
+        title: "Investment Operations Administrator — ANZ",
+        date: "Jun 2024 – Mar 2025",
+      },
+      {
         id: "subcontractor-compliance-coordinator",
         title: "Subcontractor Compliance Coordinator — Ventia",
         date: "Nov 2023 – Feb 2024",
@@ -81,42 +81,42 @@ export default function Experience() {
           </h2>
         </div>
 
-              <div className="space-y-12">
-            {eras.map((era, eraIndex) => (
-              <motion.div
-                key={era.id}
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: eraIndex * 0.1 }}
-                className="relative pl-8 border-l-2 border-[#1F2833]"
+        <div className="space-y-12">
+          {eras.map((era, eraIndex) => (
+            <motion.div
+              key={era.id}
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: eraIndex * 0.1 }}
+              className="relative pl-8 border-l-2 border-[#1F2833]"
             >
               <div className="absolute -left-[9px] top-1 w-5 h-5 rounded-full bg-[#D4AF37] shadow-[0_0_0_5px_rgba(212,175,55,0.25)]" />
               <span className="mono text-sm mb-2 block">{era.period}</span>
               <h3 className="text-2xl font-bold mb-6">{era.title}</h3>
 
-                <div className="space-y-6">
-                  {era.roles.map((role, roleIndex) => (
-                    <motion.div
-                      key={role.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: roleIndex * 0.1 }}
-                      className="glass-tilt p-6"
-                    >
-                      <h4 className="text-lg font-semibold mb-1">{role.title}</h4>
-                      <p className="text-[#aab3bd] text-sm mb-3">{role.date}</p>
-{roleHasBullets(role) && (
-  <ul className="list-disc list-inside space-y-1 text-[#aab3bd] text-sm">
-    {role.bullets!.map((bullet, bulletIndex) => (
-      <li key={bulletIndex}>{bullet}</li>
-    ))}
-  </ul>
-)}
-                    </motion.div>
-                  ))}
-                </div>
+              <div className="space-y-6">
+                {era.roles.map((role, roleIndex) => (
+                  <motion.div
+                    key={role.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: roleIndex * 0.1 }}
+                    className="glass-tilt p-6"
+                  >
+                    <h4 className="text-lg font-semibold mb-1">{role.title}</h4>
+                    <p className="text-[#aab3bd] text-sm mb-3">{role.date}</p>
+                    {roleHasBullets(role) && (
+                      <ul className="list-disc list-inside space-y-1 text-[#aab3bd] text-sm">
+                        {role.bullets!.map((bullet, bulletIndex) => (
+                          <li key={bulletIndex}>{bullet}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
