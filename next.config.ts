@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   cacheComponents: false,
   partialPrefetching: false,
+  turbopack: {},
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.externals = config.externals || [];

@@ -1,67 +1,56 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme inline {
-  --color-background: #0B0C10;
-  --color-foreground: #F8F9FA;
-  --color-gold: #D4AF37;
-  --color-emerald: #00A86B;
-  --color-muted: #AAB3BD;
-  --color-card: rgba(248, 249, 250, .06);
-  --color-line: rgba(248, 249, 250, .14);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@layer base {
+  body {
+    background: #0B0C10;
+    color: #F8F9FA;
+    font-family: var(--font-body);
+  }
 }
 
-body {
-  background: #0B0C10;
-  color: #F8F9FA;
-  font-family: var(--font-geist-sans);
-}
+@layer utilities {
+  .glass {
+    background: rgba(248, 249, 250, 0.06);
+    border: 1px solid rgba(248, 249, 250, 0.14);
+    backdrop-filter: blur(14px);
+  }
 
-/* Glassmorphism utility classes */
-.glass {
-  background: rgba(248, 249, 250, .06);
-  border: 1px solid rgba(248, 249, 250, .14);
-  backdrop-filter: blur(14px);
-}
+  .glass-tilt {
+    background: rgba(248, 249, 250, 0.06);
+    border: 1px solid rgba(248, 249, 250, 0.14);
+    border-radius: 20px;
+    backdrop-filter: blur(14px);
+    transition: transform .2s ease;
+    transform-style: preserve-3d;
+  }
 
-.glass-tilt {
-  background: rgba(248, 249, 250, .06);
-  border: 1px solid rgba(248, 249, 250, .14);
-  border-radius: 20px;
-  backdrop-filter: blur(14px);
-  transition: transform .2s ease;
-  transform-style: preserve-3d;
-}
+  .glass-tilt:hover {
+    transform: perspective(800px) rotateY(5deg) rotateX(-5deg);
+  }
 
-.glass-tilt:hover {
-  transform: perspective(800px) rotateY(5deg) rotateX(-5deg);
-}
+  .mono {
+    font-family: var(--font-mono);
+    font-size: .78rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #D4AF37;
+  }
 
-/* Mono text utility */
-.mono {
-  font-family: var(--font-geist-mono);
-  font-size: .78rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: #D4AF37;
-}
+  .hl {
+    color: #D4AF37;
+  }
 
-/* Gold highlight */
-.hl {
-  color: #D4AF37;
-}
+  .hl2 {
+    color: #00A86B;
+  }
 
-/* Emerald highlight */
-.hl2 {
-  color: #00A86B;
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

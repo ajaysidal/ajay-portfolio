@@ -30,9 +30,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "backdrop-blur-md bg-[#0B0C10]/80" : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0B0C10]"
     >
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold text-[#F8F9FA] tracking-tight">
@@ -45,11 +43,7 @@ export default function Header() {
             <Link
               key={link.id}
               href={link.href}
-              className={`text-sm transition-colors duration-200 ${
-                pathname === link.href
-                  ? "text-[#D4AF37]"
-                  : "text-[#aab3bd] hover:text-[#D4AF37]"
-              }`}
+              className="text-sm transition-colors duration-200 text-[#aab3bd] hover:text-[#D4AF37]"
             >
               {link.label}
             </Link>
@@ -95,17 +89,13 @@ export default function Header() {
             <Link
               key={link.id}
               href={link.href}
-                className={`block py-2 text-sm transition-colors duration-200 ${
-                  pathname === link.href
-                    ? "text-[#D4AF37]"
-                    : "text-[#aab3bd] hover:text-[#D4AF37]"
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+              className="block py-2 text-sm transition-colors duration-200 text-[#aab3bd] hover:text-[#D4AF37]"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
         </div>
       )}
     </header>
