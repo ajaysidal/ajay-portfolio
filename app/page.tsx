@@ -11,7 +11,7 @@ const Hero3DBackground = dynamic(() => import("../components/Hero3DBackground"),
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
+    <div className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-24">
       <Hero3DBackground />
 
       <div className="relative z-10 px-4 max-w-5xl mx-auto">

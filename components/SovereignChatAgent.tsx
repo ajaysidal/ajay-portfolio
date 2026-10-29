@@ -18,7 +18,7 @@ export default function SovereignChatAgent() {
 
   return (
     <>
-      <button onClick={() => setIsOpen(!isOpen)} className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#D4AF37]">
+      <button onClick={() => setIsOpen(!isOpen)} className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-[#D4AF37]">
         {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
       </button>
       {isOpen && (
