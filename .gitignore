@@ -60,3 +60,7 @@ Thumbs.db
 dev.log
 pnpm-lock.yaml
 pnpm-workspace.yaml
+.env.local
+kuma-data/
+ollama-data/
+*.bak

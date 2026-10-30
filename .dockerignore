@@ -6,3 +6,8 @@ node_modules
 .env.production
 Dockerfile
 docker-compose.yml
+ollama-data
+data
+kuma-data
+node_modules
+.next

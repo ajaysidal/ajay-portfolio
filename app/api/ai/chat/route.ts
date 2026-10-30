@@ -1,49 +1,49 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { auth } from "@/auth";
+import { NextResponse } from "next/server";
 
-const OLLAMA_BASE = process.env.OLLAMA_API_URL || 'http://127.0.0.1:11434';
+export async function POST(req: Request) {
+  // 1. SOC 2 Compliance: Verify user is authenticated
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-export const dynamic = 'force-dynamic';
-
-export async function POST(request: NextRequest) {
   try {
-    const { message, model = 'phi3:mini' } = await request.json();
+    const { messages, model } = await req.json();
 
-    const response = await fetch(`${OLLAMA_BASE}/api/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    // 2. Forward request to internal Ollama container via Docker network
+    const ollamaUrl = process.env.OLLAMA_URL || "http://ollama:11434";
+    const selectedModel = model || "llama3.1:8b";
+    
+    const response = await fetch(`${ollamaUrl}/api/chat`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        model,
-        prompt: message,
-        stream: false,
+        model: selectedModel,
+        messages: messages,
+        stream: false, // Deterministic JSON response
       }),
     });
 
-    const data = await response.json();
-    return NextResponse.json({ response: data.response });
-  } catch (error) {
-    console.error('Ollama API Error:', error);
-    return NextResponse.json(
-      { error: 'AI service unavailable' },
-      { status: 503 }
-    );
-  }
-}
+    if (!response.ok) {
+      throw new Error(`Ollama API error: ${response.statusText}`);
+    }
 
-// Health check endpoint
-export async function GET() {
-  try {
-    const response = await fetch(`${OLLAMA_BASE}/api/tags`, {
-      cache: 'no-store',
-    });
     const data = await response.json();
+
+    // 3. Return the AI response
     return NextResponse.json({ 
-      status: 'healthy',
-      models: data.models?.map((m: any) => m.name) || []
+      success: true, 
+      response: data.message.content 
     });
-  } catch {
+
+  } catch (error) {
+    console.error("[AI PROXY ERROR]", error);
     return NextResponse.json(
-      { status: 'unavailable', models: [] },
-      { status: 503 }
+      { error: "Failed to process AI request" },
+      { status: 500 }
     );
   }
 }

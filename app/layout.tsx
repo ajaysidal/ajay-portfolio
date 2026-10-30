@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import CookieConsent from "../components/CookieConsent";
-import SovereignChatAgent from "../components/SovereignChatAgent";
+import LayoutWrapper from "../components/LayoutWrapper";
 
 const heading = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -74,18 +71,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: LayoutProps<"/">) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html
-      lang="en"
-      className={`${heading.variable} ${body.variable} ${mono.variable}`}
-    >
+    <html lang="en" className={`${heading.variable} ${body.variable} ${mono.variable}`}>
       <body className="font-body bg-bg-primary text-text-primary antialiased overflow-x-hidden">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <CookieConsent />
-        <SovereignChatAgent />
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );
