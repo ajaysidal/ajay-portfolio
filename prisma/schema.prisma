@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -8,59 +8,72 @@ datasource db {
 }
 
 model minimal {
-  id String @id
+  id        String   @id
   createdAt DateTime @default(now())
 }
 
 model User {
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model ConsultationBooking {
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
-  fullName String?
-  email String?
-  phone String?
-  companyName String?
-  businessType String?
-  primaryPain String?
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now())
+  fullName       String?
+  email          String?
+  phone          String?
+  companyName    String?
+  businessType   String?
+  primaryPain    String?
   desiredOutcome String?
-  budgetRange String?
-  timeline String?
-  status String @default("pending")
-  ipHash String?
-  userAgent String?
-  userId String?
+  budgetRange    String?
+  timeline       String?
+  status         String   @default("pending")
+  ipHash         String?
+  userAgent      String?
+  userId         String?
 }
 
 model ProjectIntake {
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
-  fullName String?
-  email String?
-  companyName String?
-  companyWebsite String?
-  currentTechStack String?
+  id                String   @id @default(uuid())
+  createdAt         DateTime @default(now())
+  fullName          String?
+  email             String?
+  companyName       String?
+  companyWebsite    String?
+  currentTechStack  String?
   primaryPainPoints String?
-  desiredOutcomes String?
-  budgetRange String?
-  timeline String?
-  scopeOfWork String?
-  status String @default("pending")
-  ipHash String?
-  userAgent String?
-  userId String?
+  desiredOutcomes   String?
+  budgetRange       String?
+  timeline          String?
+  scopeOfWork       String?
+  status            String   @default("pending")
+  ipHash            String?
+  userAgent         String?
+  userId            String?
 }
 
 model DashboardMetrics {
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
-  pageViewed String?
-  consultationId String?
+  id              String   @id @default(uuid())
+  createdAt       DateTime @default(now())
+  pageViewed      String?
+  consultationId  String?
   projectIntakeId String?
-  userId String?
-  ipHash String?
+  userId          String?
+  ipHash          String?
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  actor     String
+  action    String
+  entity    String
+  entityId  String?
+  meta      String?
+  createdAt DateTime @default(now())
 }

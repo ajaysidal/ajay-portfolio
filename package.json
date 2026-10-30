@@ -7,17 +7,22 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma skills sync || exit 0"
+    "postinstall": "prisma skills sync || exit 0",
+    "seed:admin": "tsx scripts/seed-admin.ts"
   },
   "dependencies": {
-    "@prisma/orm-sqlite": "^8.0.0-rc.21",
+    "@auth/prisma-adapter": "^2.11.3",
+    "@prisma/adapter-better-sqlite3": "^7.10.1",
+    "@prisma/client": "^7.10.1",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.2",
+    "bcryptjs": "^3.0.3",
     "better-sqlite3": "^13.0.3",
     "date-fns": "^4.4.0",
     "framer-motion": "^14.7.1",
     "lucide-react": "^1.62.0",
     "next": "16.4.3",
+    "next-auth": "^5.0.0-beta.32",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-responsive": "^10.0.1",
@@ -25,13 +30,16 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
+    "@types/bcryptjs": "^2.4.6",
     "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
+    "prisma": "^7.10.1",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
