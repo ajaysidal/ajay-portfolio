@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
+  typescript: {
+    // Keep TS strict, but ignore if it was previously failing
+    ignoreBuildErrors: false,
+  },
 };
 
 export default nextConfig;
