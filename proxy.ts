@@ -12,12 +12,12 @@ export default auth((request) => {
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
 
-  // Dashboard Auth Gate: Redirect unauthenticated users to home
+  // Dashboard Auth Gate
   if (isDashboard && !isLoggedIn) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // Audit logging for form submissions (preserved from proxy.ts)
+  // Audit logging for form submissions
   if (request.method === "POST") {
     const forwardedFor = request.headers.get("x-forwarded-for");
     const ip = forwardedFor ? forwardedFor.split(",")[0] : "unknown";
