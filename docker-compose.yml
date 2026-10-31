@@ -5,19 +5,22 @@ services:
       context: .
       dockerfile: Dockerfile
       target: runner
-    user: "root" # <--- ADDED: Grants full permissions to mounted volumes
+    user: "root"
     ports:
-      - "127.0.0.1:3000:3000" # Locked to localhost, Nginx will proxy this
+      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:4001:4001" # Expose TinaCMS GraphQL API to host for Nginx proxy
     env_file:
       - .env.local
     environment:
       NODE_ENV: production
+      NODE_OPTIONS: "--dns-result-order=ipv4first" # CRITICAL: Forces Node to prefer IPv4 (127.0.0.1) over IPv6 (::1)
       NEXT_PUBLIC_APP_URL: https://buildwithai.digital
       AUTH_TRUST_HOST: "true"
       AUTH_URL: "https://buildwithai.digital"
       OLLAMA_URL: "http://ollama:11434"
       TINA_PUBLIC_CLIENT_ID: "local"
       TINA_TOKEN: "local"
+      HOST: "0.0.0.0"
     restart: unless-stopped
     volumes:
       - ./data:/app/data
@@ -25,6 +28,7 @@ services:
       - ./content:/app/content
     networks:
       - sovereign-net
+    # Removed invalid --host flag, relying on HOST env var and --port
     command: sh -c "npx tinacms server:start --port 4001 & npm run start"
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/"]

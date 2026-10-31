@@ -1,13 +1,32 @@
+# Dependencies & Build Outputs
 node_modules
 .next
+out
+
+# Git & Documentation
 .git
+.gitignore
 *.md
+
+# Environment & Config
 .env.local
 .env.production
+.env
 Dockerfile
 docker-compose.yml
+docker-compose.override.yml
+
+# Sovereign Data Directories (CRITICAL: Prevents build context permission errors)
+postgres-data
+chroma-data
+searxng-data
 ollama-data
 data
 kuma-data
-node_modules
-.next
+
+# Logs & Temp Files
+*.log
+tinacms.log
+next.log
+*.tmp
+*.swp
