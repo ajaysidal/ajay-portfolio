@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { prisma } from "../../lib/prisma";
 
@@ -7,8 +8,14 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardOverview() {
   const session = await auth();
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+  const isDashboardSubdomain = host.startsWith("dashboard.");
 
   if (!session?.user) {
+    if (isDashboardSubdomain) {
+      redirect(`https://buildwithai.digital/api/auth/signin?callbackUrl=${encodeURIComponent("https://dashboard.buildwithai.digital/")}`);
+    }
     redirect("/");
   }
 

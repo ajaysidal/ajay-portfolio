@@ -38,6 +38,23 @@ export const {
         domain: ".buildwithai.digital",
       },
     },
+    callbackUrl: {
+      options: {
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+        domain: ".buildwithai.digital",
+      },
+    },
+    csrfToken: {
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+        domain: ".buildwithai.digital",
+      },
+    },
   },
   providers: [
     Credentials({

@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 export const metadata = {
   title: "System Monitoring | Sovereign Command",
@@ -8,8 +9,14 @@ export const metadata = {
 
 export default async function MonitoringPage() {
   const session = await auth();
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+  const isDashboardSubdomain = host.startsWith("dashboard.");
   
   if (!session) {
+    if (isDashboardSubdomain) {
+      redirect(`https://buildwithai.digital/api/auth/signin?callbackUrl=${encodeURIComponent("https://dashboard.buildwithai.digital/")}`);
+    }
     redirect("/");
   }
 

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { LayoutDashboard, Activity, Zap, Calendar, FileText, Shield, LogOut, Database } from "lucide-react";
 
@@ -24,8 +25,14 @@ const navItems = [
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+  const isDashboardSubdomain = host.startsWith("dashboard.");
 
   if (!session) {
+    if (isDashboardSubdomain) {
+      redirect(`https://buildwithai.digital/api/auth/signin?callbackUrl=${encodeURIComponent("https://dashboard.buildwithai.digital/")}`);
+    }
     redirect("/");
   }
 
