@@ -1,8 +1,8 @@
 import { defineConfig } from "tinacms";
 
 export default defineConfig({
-  branch: "main", // Your default Git branch
-  clientId: process.env.TINA_CLIENT_ID || "local",
+  branch: process.env.NEXT_PUBLIC_TINA_BRANCH || "main",
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "local",
   token: process.env.TINA_TOKEN || "local",
   build: {
     outputFolder: "admin",
@@ -21,11 +21,6 @@ export default defineConfig({
         label: "Services",
         path: "content/services",
         format: "mdx",
-        ui: {
-          filename: {
-            slugify: (values) => values?.title ? values.title.toLowerCase().replace(/ /g, '-') : '',
-          },
-        },
         fields: [
           {
             type: "string",

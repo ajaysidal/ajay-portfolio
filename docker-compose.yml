@@ -18,8 +18,9 @@ services:
       AUTH_TRUST_HOST: "true"
       AUTH_URL: "https://buildwithai.digital"
       OLLAMA_URL: "http://ollama:11434"
-      TINA_PUBLIC_CLIENT_ID: "local"
-      TINA_TOKEN: "local"
+      NEXT_PUBLIC_TINA_CLIENT_ID: "fef64af4-eaf2-4e6f-bd87-1f368c2b9dab"
+      NEXT_PUBLIC_TINA_BRANCH: "main"
+      TINA_TOKEN: "ec395e26b7df37429193c34e59e66830e4074d6e"
       HOST: "0.0.0.0"
     restart: unless-stopped
     volumes:
