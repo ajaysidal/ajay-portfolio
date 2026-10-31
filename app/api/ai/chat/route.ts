@@ -49,7 +49,7 @@ export async function POST(req: Request) {
 
         if (searchRes.ok) {
           const searchData = await searchRes.json();
-          const topResults = searchData.results.slice(0, 3).map((r: any) =>
+          const topResults = searchData.results.slice(0, 3).map((r: { title: string; content: string }) =>
             `- ${r.title}: ${r.content}`
           ).join("\n");
 

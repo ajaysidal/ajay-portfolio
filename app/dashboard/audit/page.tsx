@@ -1,6 +1,16 @@
 import Database from "better-sqlite3";
 import path from "path";
 
+interface AuditLogEntry {
+  id: number;
+  actor: string;
+  action: string;
+  entity: string;
+  entityId: string | null;
+  meta: string | null;
+  createdAt: string | number;
+}
+
 export const dynamic = "force-dynamic";
 
 function getDb() {
@@ -14,7 +24,7 @@ export default function AuditLogPage() {
     .prepare(
       "SELECT id, actor, action, entity, entityId, meta, createdAt FROM AuditLog ORDER BY createdAt DESC LIMIT 50"
     )
-    .all() as any[];
+    .all() as AuditLogEntry[];
 
   return (
     <div>
