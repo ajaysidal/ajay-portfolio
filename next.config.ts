@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
   cacheComponents: false,
   partialPrefetching: false,
   turbopack: {},
@@ -16,7 +15,6 @@ const nextConfig: NextConfig = {
     return config;
   },
   typescript: {
-    // Keep TS strict, but ignore if it was previously failing
     ignoreBuildErrors: false,
   },
 };

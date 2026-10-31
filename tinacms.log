@@ -1,0 +1,41 @@
+🦙 TinaCMS Dev Server is initializing...
+WARN: Detected legacy `.tina/` config folder. `tina-lock.json` is only generated for the new `tina/` layout, and TinaCloud requires it to index your schema. Migrate by renaming `.tina/` to `tina/` (the contents stay the same). See https://tina.io/docs/tina-folder/overview/.
+[2K[1GIndexing local files ⠋[2K[1GIndexing local files ⠙
+│
+○  ✅ 🦙 TinaCMS Dev Server is active: ─────────────────────────────────────╮
+│                                                                          │
+│  🦙 TinaCMS URLs                                                         │
+│     CMS:                <your-dev-server-url>/admin/index.html           │
+│     API playground:     <your-dev-server-url>/admin/index.html#/graphql  │
+│     API url:            http://localhost:4001/graphql                    │
+│                                                                          │
+│  🤖 Auto-generated files                                                 │
+│     GraphQL Client:     .tina/__generated__/client.ts                    │
+│     Typescript Types:   .tina/__generated__/types.ts                     │
+│                                                                          │
+│                                                                          │
+├──────────────────────────────────────────────────────────────────────────╯
+Running web application with command: npm run dev -- -H 0.0.0.0 -p 3000
+
+> ajay-portfolio@0.1.0 dev
+> next dev -H 0.0.0.0 -p 3000
+
+▲ Next.js 16.4.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://0.0.0.0:3000
+- Environments: .env.local, .env
+✓ Ready in 847ms
+✓ Running next.config.ts took 138ms
+
+ GET /signin?callbackUrl=%2Fdashboard 200 in 567ms (next.js: 118ms, application-code: 449ms)
+ GET / 200 in 1268ms (next.js: 996ms, proxy.ts: 114ms, application-code: 158ms)
+ GET / 200 in 1868ms (next.js: 1198ms, proxy.ts: 579ms, application-code: 91ms)
+ GET /api/ai/chat 405 in 247ms (next.js: 156ms, proxy.ts: 41ms, application-code: 51ms)
+ GET / 200 in 123ms (next.js: 18ms, proxy.ts: 20ms, application-code: 85ms)
+ GET / 200 in 78ms (next.js: 6ms, proxy.ts: 11ms, application-code: 61ms)
+ GET /signin?callbackUrl=%2Fdashboard 200 in 61ms (next.js: 2ms, application-code: 59ms)
+Error: The Server Reference ID did not match the expected format. Received "x".
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST / 400 in 707ms (next.js: 36ms, proxy.ts: 9ms, application-code: 661ms)
+[?25h

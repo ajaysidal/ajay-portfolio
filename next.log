@@ -1,0 +1,15 @@
+▲ Next.js 16.4.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://0.0.0.0:3000
+- Environments: .env.local, .env
+✓ Ready in 547ms
+✓ Running next.config.ts took 57ms
+
+ GET / 200 in 1025ms (next.js: 561ms, proxy.ts: 17ms, application-code: 447ms)
+ GET / 200 in 1527ms (next.js: 1018ms, proxy.ts: 351ms, application-code: 158ms)
+ GET /signin?callbackUrl=%2Fdashboard 200 in 92ms (next.js: 14ms, application-code: 78ms)
+ GET /api/ai/chat 405 in 344ms (next.js: 199ms, proxy.ts: 95ms, application-code: 50ms)
+ GET / 200 in 118ms (next.js: 12ms, proxy.ts: 15ms, application-code: 91ms)
+ GET / 200 in 79ms (next.js: 8ms, proxy.ts: 9ms, application-code: 62ms)
+ GET /signin?callbackUrl=%2Fdashboard 200 in 72ms (next.js: 2ms, application-code: 70ms)
+[?25h

@@ -14,7 +14,7 @@ services:
       NEXT_PUBLIC_APP_URL: https://buildwithai.digital
       AUTH_TRUST_HOST: "true"
       AUTH_URL: "https://buildwithai.digital"
-      OLLAMA_URL: "http://ollama:11434" # Internal Docker network URL
+      OLLAMA_URL: "http://ollama:11434"
     restart: unless-stopped
     volumes:
       - ./data:/app/data
@@ -37,27 +37,39 @@ services:
     networks:
       - sovereign-net
     ports:
-      - "127.0.0.1:3003:3001" # Bound to localhost for Nginx reverse proxy security
+      - "127.0.0.1:3003:3001"
 
-  # 3. OLLAMA SOVEREIGN AI ENGINE
+  # 3. OLLAMA SOVEREIGN AI ENGINE (Optimized for CPU)
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
     restart: unless-stopped
     ports:
-      - "127.0.0.1:11434:11434" # Secure: Only accessible from host localhost
+      - "127.0.0.1:11434:11434"
     volumes:
       - ./ollama-data:/root/.ollama
     networks:
       - sovereign-net
-    # Note: If your VPS has an NVIDIA GPU, uncomment the following lines:
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: 1
-    #           capabilities: [gpu]
+    environment:
+      - OLLAMA_NUM_THREADS=2
+      - OLLAMA_MAX_LOADED_MODELS=1
+      - OLLAMA_FLASH_ATTENTION=1
+
+  # 4. SEARXNG (Sovereign, Privacy-Respecting Metasearch Engine)
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8080/
+      - SEARXNG_SECRET=rj+x3b7hDZRjhmB4nra7iUlpDZmPrLqGkCT08/whvcc=
+    volumes:
+      - ./searxng-data:/etc/searxng:rw
+      - ./searxng-settings.yml:/etc/searxng/settings.yml:ro
+    networks:
+      - sovereign-net
 
 networks:
   sovereign-net:
