@@ -1,12 +1,13 @@
 services:
-  # 1. NEXT.JS CONTROL PLANE
+  # 1. NEXT.JS CONTROL PLANE + TINACMS BACKEND
   ajay-portfolio:
     build:
       context: .
       dockerfile: Dockerfile
       target: runner
+    user: "root" # <--- ADDED: Grants full permissions to mounted volumes
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000" # Locked to localhost, Nginx will proxy this
     env_file:
       - .env.local
     environment:
@@ -15,11 +16,16 @@ services:
       AUTH_TRUST_HOST: "true"
       AUTH_URL: "https://buildwithai.digital"
       OLLAMA_URL: "http://ollama:11434"
+      TINA_PUBLIC_CLIENT_ID: "local"
+      TINA_TOKEN: "local"
     restart: unless-stopped
     volumes:
       - ./data:/app/data
+      - ./.tina:/app/.tina
+      - ./content:/app/content
     networks:
       - sovereign-net
+    command: sh -c "npx tinacms server:start --port 4001 & npm run start"
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/"]
       interval: 30s

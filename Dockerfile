@@ -13,6 +13,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate
 RUN npm run build
+RUN npx tinacms build --local --skip-cloud-checks
 
 FROM base AS runner
 RUN addgroup -S nodejs -g 1001

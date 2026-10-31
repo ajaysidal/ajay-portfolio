@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import Link from "next/link";
-import { LayoutDashboard, Activity, Zap, Calendar, FileText, Shield, LogOut } from "lucide-react";
+import { LayoutDashboard, Activity, Zap, Calendar, FileText, Shield, LogOut, Database } from "lucide-react";
 
 export const metadata = {
   robots: { index: false, follow: false },
@@ -14,6 +14,12 @@ const navItems = [
   { href: "/dashboard/bookings", label: "Bookings", icon: Calendar },
   { href: "/dashboard/intake", label: "Intake", icon: FileText },
   { href: "/dashboard/audit", label: "Audit Log", icon: Shield },
+  { 
+    href: "https://cms.buildwithai.digital/admin", 
+    label: "Open CMS Editor", 
+    icon: Database,
+    external: true 
+  },
 ];
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -37,6 +43,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <Link
               key={item.href}
               href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noopener noreferrer" : undefined}
               className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-[#aab3bd] hover:bg-[#1F2833] hover:text-[#D4AF37] transition-colors"
             >
               <item.icon className="w-5 h-5" />
