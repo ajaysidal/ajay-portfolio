@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import Link from "next/link";
 
 function SignInForm() {
   const router = useRouter();
@@ -98,10 +99,13 @@ function SignInForm() {
           </button>
         </form>
 
-        <div className="mt-6 pt-6 border-t border-[#1F2833]">
-          <p className="text-xs text-[#aab3bd] text-center">
-            Default: admin@buildwithai.digital / ChangeMe123!
-          </p>
+        <div className="mt-4">
+          <Link
+            href="/forgot-password"
+            className="block text-center text-sm text-[#aab3bd] hover:text-[#D4AF37] transition-colors"
+          >
+            Forgot password?
+          </Link>
         </div>
       </div>
     </div>

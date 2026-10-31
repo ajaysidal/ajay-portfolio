@@ -52,7 +52,6 @@ export const {
         sameSite: "lax",
         path: "/",
         secure: true,
-        domain: ".buildwithai.digital",
       },
     },
   },

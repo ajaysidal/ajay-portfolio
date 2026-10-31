@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma skills sync || exit 0",
-    "seed:admin": "tsx scripts/seed-admin.ts"
+    "seed:admin": "tsx scripts/seed-admin.ts",
+    "admin:reset": "node scripts/reset-admin.mjs"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.3",
