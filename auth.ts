@@ -4,16 +4,18 @@ import { prisma } from "./lib/prisma";
 import Credentials from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 
-// 1. Extend NextAuth types to include 'role'
+// 1. Extend NextAuth types to include 'role' and 'mustChangePassword'
 declare module "next-auth" {
   interface User {
     role?: string;
+    mustChangePassword?: boolean;
   }
   interface Session {
     user: {
       id: string;
       email: string;
       role?: string;
+      mustChangePassword?: boolean;
     };
   }
 }
@@ -88,6 +90,7 @@ export const {
           id: user.id,
           email: user.email,
           role: user.role,
+          mustChangePassword: user.mustChangePassword,
         };
       },
     }),
@@ -97,6 +100,7 @@ export const {
       if (user) {
         token.id = user.id;
         token.role = user.role;
+        token.mustChangePassword = user.mustChangePassword;
       }
       return token;
     },
@@ -104,6 +108,7 @@ export const {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
+        session.user.mustChangePassword = token.mustChangePassword as boolean;
       }
       return session;
     },

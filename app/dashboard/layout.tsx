@@ -36,6 +36,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
     redirect("/");
   }
 
+  // Force password change on first login
+  if (session.user?.mustChangePassword) {
+    redirect("/change-password");
+  }
+
   return (
     <div className="min-h-screen bg-[#0B0C10] text-[#F8F9FA] flex">
       {/* Glassmorphic Sidebar */}
