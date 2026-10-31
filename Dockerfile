@@ -12,8 +12,8 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate
-RUN npm run build
 RUN npx tinacms build --local --skip-cloud-checks
+RUN npm run build
 
 FROM base AS runner
 RUN addgroup -S nodejs -g 1001
