@@ -8,14 +8,15 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  // Fetch all services from Tina (Local or Cloud)
   const { data } = await client.queries.servicesConnection({
     first: 100,
   });
 
-  const services = data.servicesConnection.edges
+  // Null-safe extraction of edges
+  const edges = data.servicesConnection?.edges || [];
+  const services = edges
     .map((edge: any) => edge.node)
-    .filter((node: any) => node.status === "published");
+    .filter((node: any) => node && node.status === "published");
 
   return <ServicesList initialServices={services} />;
 }

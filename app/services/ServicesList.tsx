@@ -1,7 +1,6 @@
 'use client';
 
 import { useTina } from 'tinacms/dist/react';
-import client from '../../tina/__generated__/client';
 import Link from "next/link";
 import { ArrowRight, Bot, Server, FileText } from "lucide-react";
 
@@ -11,18 +10,45 @@ function getServiceIcon(slug: string) {
   return FileText;
 }
 
-const SERVICE_LIST_QUERY = client.queries.servicesConnection.query;
+// Explicitly define the query to avoid generated client TS typing issues
+const SERVICES_QUERY = `
+  query ServicesConnection($first: Int) {
+    servicesConnection(first: $first) {
+      edges {
+        node {
+          _sys {
+            filename
+          }
+          title
+          slug
+          description
+          status
+          _tina {
+            fieldProps {
+              title
+              description
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default function ServicesList({ initialServices }: { initialServices: any[] }) {
   const { data } = useTina({
-    query: SERVICE_LIST_QUERY,
+    query: SERVICES_QUERY,
     variables: { first: 100 },
-    data: { servicesConnection: { edges: initialServices.map((s: any) => ({ node: s })) } },
+    data: { 
+      servicesConnection: { 
+        edges: initialServices.map((s: any) => ({ node: s })) 
+      } 
+    },
   });
 
-  const services = data.servicesConnection.edges
+  const services = (data.servicesConnection?.edges || [])
     .map((edge: any) => edge.node)
-    .filter((node: any) => node.status === "published");
+    .filter((node: any) => node && node.status === "published");
 
   return (
     <section className="py-24 px-6">
@@ -42,7 +68,7 @@ export default function ServicesList({ initialServices }: { initialServices: any
             const Icon = getServiceIcon(service.slug);
             return (
               <div
-                key={service._sys.filename}
+                key={service._sys?.filename || service.slug}
                 className="glass-tilt p-8 flex flex-col h-full relative group"
               >
                 <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-6">
