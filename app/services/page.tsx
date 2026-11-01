@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description: "Core service pillars designed to transform your operations through technology, infrastructure, and intelligent automation.",
 };
 
+// Prevent Next.js from trying to statically generate this page at build time.
+// This avoids the "GraphQL schema not found" error when the local Tina server isn't running during `next build`.
+export const dynamic = 'force-dynamic';
+
 export default async function ServicesPage() {
   const { data } = await client.queries.servicesConnection({
     first: 100,
