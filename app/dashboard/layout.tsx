@@ -38,7 +38,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   // Force password change on first login
   if (session.user?.mustChangePassword) {
-    redirect("/change-password");
+    redirect("https://buildwithai.digital/change-password");
   }
 
   return (
