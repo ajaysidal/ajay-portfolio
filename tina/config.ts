@@ -45,7 +45,7 @@ export default defineConfig({
             name: "status",
             label: "Status",
             options: ["draft", "published"],
-            default: "published",
+            defaultValue: "published",
           },
         ],
       },
