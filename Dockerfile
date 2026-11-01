@@ -24,7 +24,7 @@ RUN echo "NEXT_PUBLIC_TINA_CLIENT_ID=${NEXT_PUBLIC_TINA_CLIENT_ID}" > .env.local
     echo "TINA_TOKEN=${TINA_TOKEN}" >> .env.local
 
 RUN npx prisma generate
-RUN npx tinacms build --skip-cloud-checks
+RUN NEXT_PUBLIC_TINA_CLIENT_ID=${NEXT_PUBLIC_TINA_CLIENT_ID} NEXT_PUBLIC_TINA_BRANCH=${NEXT_PUBLIC_TINA_BRANCH} TINA_TOKEN=${TINA_TOKEN} npx tinacms build --skip-cloud-checks
 RUN npm run build
 FROM base AS runner
 RUN addgroup -S nodejs -g 1001
