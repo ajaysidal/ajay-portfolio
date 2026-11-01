@@ -5,8 +5,81 @@ export function gql(strings, ...args) {
   });
   return str;
 }
+export const ServicesPartsFragmentDoc = gql`
+    fragment ServicesParts on Services {
+  __typename
+  title
+  slug
+  description
+  status
+}
+    `;
+export const ServicesDocument = gql`
+    query services($relativePath: String!) {
+  services(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...ServicesParts
+  }
+}
+    ${ServicesPartsFragmentDoc}`;
+export const ServicesConnectionDocument = gql`
+    query servicesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ServicesFilter) {
+  servicesConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...ServicesParts
+      }
+    }
+  }
+}
+    ${ServicesPartsFragmentDoc}`;
 export function getSdk(requester) {
-  return {};
+  return {
+    services(variables, options) {
+      return requester(ServicesDocument, variables, options);
+    },
+    servicesConnection(variables, options) {
+      return requester(ServicesConnectionDocument, variables, options);
+    }
+  };
 }
 import { createClient } from "tinacms/dist/client";
 const generateRequester = (client) => {

@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
-
 export default function Logo({ variant = "full" }: { variant?: "full" | "icon" }) {
   return (
-    <Link href="/" aria-label="Build With AI - Home" className="flex items-center gap-3 group">
+    <span className="flex items-center gap-3 group" aria-hidden="true">
       {/* SVG Logo Mark */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -70,6 +68,6 @@ export default function Logo({ variant = "full" }: { variant?: "full" | "icon" }
           BUILD WITH AI
         </span>
       )}
-    </Link>
+    </span>
   );
 }

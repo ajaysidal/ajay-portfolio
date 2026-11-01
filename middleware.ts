@@ -20,36 +20,31 @@ export function middleware(request: NextRequest) {
   }
 
   // Only apply dashboard subdomain logic
-  if (host !== DASHBOARD_HOST) {
-    return NextResponse.next();
-  }
+  if (host === DASHBOARD_HOST) {
+    // Detect session via cookie presence
+    const hasSession =
+      request.cookies.has("authjs.session-token") ||
+      request.cookies.has("__Secure-authjs.session-token");
 
-  // Detect session via cookie presence
-  const hasSession =
-    request.cookies.has("authjs.session-token") ||
-    request.cookies.has("__Secure-authjs.session-token");
+    if (!hasSession) {
+      // No session: redirect to MAIN login with callbackUrl back to dashboard
+      const signinUrl = `${MAIN_ORIGIN}/signin?callbackUrl=${encodeURIComponent("https://dashboard.buildwithai.digital/")}`;
+      return NextResponse.redirect(signinUrl, 302);
+    }
 
-  if (!hasSession) {
-    // No session: redirect to MAIN login with callbackUrl back to dashboard
-    // This BREAKS the loop by leaving the subdomain entirely
-    const callbackUrl = `${MAIN_ORIGIN}/dashboard`; // Or use the full dashboard URL
-    const signinUrl = `${MAIN_ORIGIN}${SIGNIN_PATH}?callbackUrl=${encodeURIComponent("https://dashboard.buildwithai.digital/")}`;
-    return NextResponse.redirect(signinUrl, 302);
-  }
+    // Session present: rewrite root "/" to "/dashboard"
+    if (pathname === "/") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/dashboard";
+      return NextResponse.rewrite(url);
+    }
 
-  // Session present: rewrite root "/" to "/dashboard"
-  if (pathname === "/") {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
-    return NextResponse.rewrite(url);
-  }
-
-  // Any other non-asset path on dashboard host also rewrites to /dashboard
-  // (Dashboard app handles its own routing from /dashboard/*)
-  if (!pathname.startsWith("/dashboard")) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
-    return NextResponse.rewrite(url);
+    // Any other non-asset path on dashboard host also rewrites to /dashboard
+    if (!pathname.startsWith("/dashboard")) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/dashboard";
+      return NextResponse.rewrite(url);
+    }
   }
 
   return NextResponse.next();

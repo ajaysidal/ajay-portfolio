@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center text-center space-y-6">
           <Link href="/" className="text-2xl font-bold text-[#F8F9FA] tracking-tight">
-            AS
+            <Logo variant="full" />
           </Link>
           <p className="text-[#aab3bd] text-sm max-w-md">
             Technology &amp; Operations Leader | Creative Technologist

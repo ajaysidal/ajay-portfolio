@@ -1,1 +1,7 @@
-
+fragment ServicesParts on Services {
+  __typename
+  title
+  slug
+  description
+  status
+}

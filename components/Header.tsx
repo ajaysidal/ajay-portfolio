@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import Logo from "@/components/Logo";
 
 const navLinks = [
   { id: "home", href: "/", label: "Home" },
@@ -22,8 +23,8 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0B0C10]/70 backdrop-blur-xl border-b border-[#F8F9FA]/10">
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-6">
-        <Link href="/" className="shrink-0 text-xl font-bold text-[#F8F9FA] tracking-tight">
-          AS
+        <Link href="/" className="shrink-0" aria-label="Build With AI - Home">
+          <Logo variant="full" />
         </Link>
 
         {/* Centered Desktop Navigation */}

@@ -25,7 +25,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./data:/app/data
-      - ./.tina:/app/.tina
+      - ./tina:/app/tina
       - ./content:/app/content
     networks:
       - sovereign-net

@@ -7,14 +7,25 @@ COPY package.json package-lock.json* ./
 RUN npm ci
 
 FROM base AS builder
+ARG NEXT_PUBLIC_TINA_CLIENT_ID
+ARG NEXT_PUBLIC_TINA_BRANCH
+ARG TINA_TOKEN
+
 ENV NODE_ENV=production
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-RUN npx prisma generate
-RUN npx tinacms build --local --skip-cloud-checks
-RUN npm run build
 
+# COPY host files first (respecting .dockerignore)
+COPY . .
+
+# Bulletproof: Create .env.local AFTER copy, guaranteeing Next.js sees it
+RUN echo "NEXT_PUBLIC_TINA_CLIENT_ID=${NEXT_PUBLIC_TINA_CLIENT_ID}" > .env.local && \
+    echo "NEXT_PUBLIC_TINA_BRANCH=${NEXT_PUBLIC_TINA_BRANCH}" >> .env.local && \
+    echo "TINA_TOKEN=${TINA_TOKEN}" >> .env.local
+
+RUN npx prisma generate
+RUN npx tinacms build --skip-cloud-checks
+RUN npm run build
 FROM base AS runner
 RUN addgroup -S nodejs -g 1001
 RUN adduser -S nextjs -u 1001 -G nodejs

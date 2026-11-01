@@ -30,3 +30,5 @@ tinacms.log
 next.log
 *.tmp
 *.swp
+! .env.build
+! .env.build
