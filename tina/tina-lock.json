@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "gitBranch": "main",
+  "clientId": "fef64af4-eaf2-4e6f-bd87-1f368c2b9dab",
+  "clientToken": "local",
+  "tinaAddress": "http://localhost:4001",
+  "tinaMediaAddress": "http://localhost:4001",
+  "searchEndpoint": "http://localhost:4001/graphql",
+  "cms": {
+    "state": "LIVE"
+  },
+  "components": {
+    "tina-admin": {
+      "version": "3.15.0"
+    }
+  },
+  "schema": {
+    "collections": [
+      {
+        "name": "services",
+        "path": "content/services",
+        "label": "Services",
+        "format": "mdx",
+        "fields": [
+          {
+            "type": "string",
+            "name": "title",
+            "label": "Service Title",
+            "isTitle": true,
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "slug",
+            "label": "URL Slug",
+            "required": true
+          },
+          {
+            "type": "rich-text",
+            "name": "description",
+            "label": "Service Description"
+          },
+          {
+            "type": "string",
+            "name": "status",
+            "label": "Status",
+            "options": ["draft", "published"],
+            "default": "published"
+          }
+        ]
+      }
+    ]
+  }
+}
