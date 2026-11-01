@@ -57,13 +57,9 @@ type Query {
   collections: [Collection!]!
   node(id: String): Node!
   document(collection: String, relativePath: String): DocumentNode!
-  services(relativePath: String): Services!
-  servicesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: ServicesFilter): ServicesConnection!
 }
 
-input DocumentFilter {
-  services: ServicesFilter
-}
+input DocumentFilter
 
 type DocumentConnectionEdges {
   cursor: String!
@@ -88,48 +84,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Services | Folder
-
-type Services implements Node & Document {
-  title: String!
-  slug: String!
-  description: RichText
-  status: String
-  id: ID!
-  _sys: SystemInfo!
-  _values: JSON!
-}
-
-input StringFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
-  in: [String]
-}
-
-input RichTextFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
-}
-
-input ServicesFilter {
-  title: StringFilter
-  slug: StringFilter
-  description: RichTextFilter
-  status: StringFilter
-}
-
-type ServicesConnectionEdges {
-  cursor: String!
-  node: Services
-}
-
-type ServicesConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [ServicesConnectionEdges]
-}
+union DocumentNode = Folder
 
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
@@ -137,25 +92,13 @@ type Mutation {
   deleteDocument(collection: String, relativePath: String!): DocumentNode!
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   createFolder(collection: String, relativePath: String!): DocumentNode!
-  updateServices(relativePath: String!, params: ServicesMutation!): Services!
-  createServices(relativePath: String!, params: ServicesMutation!): Services!
 }
 
 input DocumentUpdateMutation {
-  services: ServicesMutation
   relativePath: String
 }
 
-input DocumentMutation {
-  services: ServicesMutation
-}
-
-input ServicesMutation {
-  title: String
-  slug: String
-  description: RichText
-  status: String
-}
+input DocumentMutation
 
 schema {
   query: Query

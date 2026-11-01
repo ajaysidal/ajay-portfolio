@@ -9,8 +9,6 @@
   }
   import type { TinaMarkdownContent } from 'tinacms/dist/rich-text';
 /** Internal type. DO NOT USE DIRECTLY. */
-type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-/** Internal type. DO NOT USE DIRECTLY. */
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -84,8 +82,6 @@ export type Query = {
   collections: Array<Collection>;
   node: Node;
   document: DocumentNode;
-  services: Services;
-  servicesConnection: ServicesConnection;
 };
 
 
@@ -109,24 +105,7 @@ export type QueryDocumentArgs = {
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
-
-export type QueryServicesArgs = {
-  relativePath?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryServicesConnectionArgs = {
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<ServicesFilter>;
-};
-
-export type DocumentFilter = {
-  services?: InputMaybe<ServicesFilter>;
-};
+export type DocumentFilter = {};
 
 export type DocumentConnectionEdges = {
   __typename?: 'DocumentConnectionEdges';
@@ -165,51 +144,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Services | Folder;
-
-export type Services = Node & Document & {
-  __typename?: 'Services';
-  title: Scalars['String']['output'];
-  slug: Scalars['String']['output'];
-  description?: Maybe<Scalars['RichText']['output']>;
-  status?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  _sys: SystemInfo;
-  _values: Scalars['JSON']['output'];
-};
-
-export type StringFilter = {
-  startsWith?: InputMaybe<Scalars['String']['input']>;
-  eq?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type RichTextFilter = {
-  startsWith?: InputMaybe<Scalars['String']['input']>;
-  eq?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type ServicesFilter = {
-  title?: InputMaybe<StringFilter>;
-  slug?: InputMaybe<StringFilter>;
-  description?: InputMaybe<RichTextFilter>;
-  status?: InputMaybe<StringFilter>;
-};
-
-export type ServicesConnectionEdges = {
-  __typename?: 'ServicesConnectionEdges';
-  cursor: Scalars['String']['output'];
-  node?: Maybe<Services>;
-};
-
-export type ServicesConnection = Connection & {
-  __typename?: 'ServicesConnection';
-  pageInfo: PageInfo;
-  totalCount: Scalars['Float']['output'];
-  edges?: Maybe<Array<Maybe<ServicesConnectionEdges>>>;
-};
+export type DocumentNode = Folder;
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -218,8 +153,6 @@ export type Mutation = {
   deleteDocument: DocumentNode;
   createDocument: DocumentNode;
   createFolder: DocumentNode;
-  updateServices: Services;
-  createServices: Services;
 };
 
 
@@ -255,150 +188,17 @@ export type MutationCreateFolderArgs = {
   relativePath: Scalars['String']['input'];
 };
 
-
-export type MutationUpdateServicesArgs = {
-  relativePath: Scalars['String']['input'];
-  params: ServicesMutation;
-};
-
-
-export type MutationCreateServicesArgs = {
-  relativePath: Scalars['String']['input'];
-  params: ServicesMutation;
-};
-
 export type DocumentUpdateMutation = {
-  services?: InputMaybe<ServicesMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentMutation = {
-  services?: InputMaybe<ServicesMutation>;
-};
-
-export type ServicesMutation = {
-  title?: InputMaybe<Scalars['String']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['RichText']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type StringFilter = {
-  startsWith?: string | null | undefined;
-  eq?: string | null | undefined;
-  exists?: boolean | null | undefined;
-  in?: Array<string | null | undefined> | null | undefined;
-};
-
-export type RichTextFilter = {
-  startsWith?: string | null | undefined;
-  eq?: string | null | undefined;
-  exists?: boolean | null | undefined;
-};
-
-export type ServicesFilter = {
-  title?: StringFilter | null | undefined;
-  slug?: StringFilter | null | undefined;
-  description?: RichTextFilter | null | undefined;
-  status?: StringFilter | null | undefined;
-};
-
-export type ServicesPartsFragment = { __typename: 'Services', title: string, slug: string, description: TinaMarkdownContent | null, status: string | null };
-
-export type ServicesQueryVariables = Exact<{
-  relativePath: string;
-}>;
+export type DocumentMutation = {};
 
 
-export type ServicesQuery = { services: { __typename: 'Services', id: string, title: string, slug: string, description: TinaMarkdownContent | null, status: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
-
-export type ServicesConnectionQueryVariables = Exact<{
-  before?: string | null | undefined;
-  after?: string | null | undefined;
-  first?: number | null | undefined;
-  last?: number | null | undefined;
-  sort?: string | null | undefined;
-  filter?: ServicesFilter | null | undefined;
-}>;
-
-
-export type ServicesConnectionQuery = { servicesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Services', id: string, title: string, slug: string, description: TinaMarkdownContent | null, status: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
-
-export const ServicesPartsFragmentDoc = gql`
-    fragment ServicesParts on Services {
-  __typename
-  title
-  slug
-  description
-  status
-}
-    `;
-export const ServicesDocument = gql`
-    query services($relativePath: String!) {
-  services(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...ServicesParts
-  }
-}
-    ${ServicesPartsFragmentDoc}`;
-export const ServicesConnectionDocument = gql`
-    query servicesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ServicesFilter) {
-  servicesConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...ServicesParts
-      }
-    }
-  }
-}
-    ${ServicesPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
-      services(variables: ServicesQueryVariables, options?: C): Promise<{data: ServicesQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ServicesQueryVariables, query: string}> {
-        return requester<{data: ServicesQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ServicesQueryVariables, query: string}, ServicesQueryVariables>(ServicesDocument, variables, options);
-      },
-    servicesConnection(variables?: ServicesConnectionQueryVariables, options?: C): Promise<{data: ServicesConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ServicesConnectionQueryVariables, query: string}> {
-        return requester<{data: ServicesConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ServicesConnectionQueryVariables, query: string}, ServicesConnectionQueryVariables>(ServicesConnectionDocument, variables, options);
-      }
+  
     };
   }
   export type Sdk = ReturnType<typeof getSdk>;

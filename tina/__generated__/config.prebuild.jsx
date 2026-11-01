@@ -1,11 +1,11 @@
-// .tina/config.ts
+// tina/config.ts
 import { defineConfig } from "tinacms";
 var config_default = defineConfig({
-  branch: process.env.NEXT_PUBLIC_TINA_BRANCH || "main",
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "local",
-  token: process.env.TINA_TOKEN || "local",
+  branch: process.env.NEXT_PUBLIC_TINA_BRANCH || "main",
+  token: process.env.TINA_TOKEN || "",
   build: {
-    outputFolder: "tina/admin",
+    outputFolder: "admin",
     publicFolder: "public"
   },
   media: {
@@ -15,41 +15,8 @@ var config_default = defineConfig({
     }
   },
   schema: {
-    collections: [
-      {
-        name: "services",
-        label: "Services",
-        path: "content/services",
-        format: "mdx",
-        fields: [
-          {
-            type: "string",
-            name: "title",
-            label: "Service Title",
-            isTitle: true,
-            required: true
-          },
-          {
-            type: "string",
-            name: "slug",
-            label: "URL Slug",
-            required: true
-          },
-          {
-            type: "rich-text",
-            name: "description",
-            label: "Service Description"
-          },
-          {
-            type: "string",
-            name: "status",
-            label: "Status",
-            options: ["draft", "published"],
-            default: "published"
-          }
-        ]
-      }
-    ]
+    // ... your existing schema collections go here ...
+    collections: []
   }
 });
 export {
