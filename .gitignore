@@ -64,3 +64,5 @@ pnpm-workspace.yaml
 kuma-data/
 ollama-data/
 *.bak
+postgres-data/
+.env*
