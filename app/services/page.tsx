@@ -28,7 +28,6 @@ interface Service {
 
 function getServices(): Service[] {
   const servicesDir = path.join(process.cwd(), "content/services");
-  if (!fs.existsSync(servicesDir)) return [];
   
   const files = fs.readdirSync(servicesDir).filter((f) => f.endsWith(".mdx"));
   return files.map((file) => {
@@ -46,11 +45,9 @@ function getServices(): Service[] {
 }
 
 export default function ServicesPage() {
-  // HYBRID CHECK: Look for a Puck JSON layout first
   const puckFilePath = path.join(process.cwd(), "content/pages", "services.json");
   
   if (fs.existsSync(puckFilePath)) {
-    // If Puck layout exists, render it visually
     const fileContent = fs.readFileSync(puckFilePath, "utf-8");
     const data = JSON.parse(fileContent);
     return (
@@ -60,7 +57,6 @@ export default function ServicesPage() {
     );
   }
 
-  // FALLBACK: Render the original hardcoded page if no Puck layout exists
   const services = getServices();
 
   return (
