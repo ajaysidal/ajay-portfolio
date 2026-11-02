@@ -30,7 +30,6 @@ export const puckConfig: Config<Props> = {
         headline: 'Build the Future',
         text: 'Describe your vision here.',
       },
-      // Puck passes props directly, so we wrap them in 'data' for our component
       render: (props) => <Hero data={props} />,
     },
     Features: {
