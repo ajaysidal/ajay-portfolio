@@ -36,9 +36,12 @@ export default defineConfig({
             required: true,
           },
           {
-            type: "rich-text",
+            type: "string",
             name: "description",
             label: "Service Description",
+            ui: {
+              component: "textarea",
+            },
           },
           {
             type: "string",
@@ -47,10 +50,8 @@ export default defineConfig({
             options: ["draft", "published"],
           },
         ],
-        // CORRECTED: Return the full live site URL for visual editing
         ui: {
           router: ({ document }) => {
-            // Return the full URL to the live page
             return `https://buildwithai.digital/services`;
           },
         },
@@ -58,4 +59,3 @@ export default defineConfig({
     ],
   },
 });
-// Force webhook trigger 1793587187
