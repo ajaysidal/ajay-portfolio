@@ -58,7 +58,7 @@ export const puckConfig: Config<Props> = {
           arrayFields: {
             title: { type: "text", label: "Feature Title" },
             text: { type: "textarea", label: "Feature Description" },
-            icon: { type: "text", label: "Icon Name (optional)" },
+            icon: { type: "text", label: "Icon Name (bot, server, file, zap, shield, globe)" },
           },
           label: "Feature Items",
         },

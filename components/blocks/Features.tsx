@@ -25,7 +25,7 @@ export const Features = ({ data }: { data: FeaturesData }) => {
   
   return (
     <section className="py-16 px-6">
-      <div className={}>
+      <div className={`max-w-7xl mx-auto grid grid-cols-1 ${gridClass} gap-8`}>
         {data.items?.map((item, i) => {
           const Icon = getIcon(item.icon);
           return (
