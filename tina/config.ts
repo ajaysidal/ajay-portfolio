@@ -47,10 +47,11 @@ export default defineConfig({
             options: ["draft", "published"],
           },
         ],
-        // VISUAL EDITING ROUTER: Tells CMS which live URL to open for editing
+        // CORRECTED: Return the full live site URL for visual editing
         ui: {
           router: ({ document }) => {
-            return `/services`;
+            // Return the full URL to the live page
+            return `https://buildwithai.digital/services`;
           },
         },
       },
