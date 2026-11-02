@@ -29,7 +29,8 @@ export default defineConfig({
         ],
         ui: {
           router: ({ document }) => {
-            return "https://buildwithai.digital/services";
+            // Return RELATIVE path - TinaCMS will construct the full preview URL
+            return "/services";
           },
         },
       },
