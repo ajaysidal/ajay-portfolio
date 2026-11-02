@@ -115,19 +115,7 @@ export default async function DashboardOverview() {
           </Link>
 
           {/* Content CMS Card - ACTIVE */}
-          <Link
-            href="/dashboard/cms"
-            className="block p-6 rounded-lg bg-[#1F2833]/50 border border-[#D4AF37]/20 hover:border-[#D4AF37] transition-all duration-200 group"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <svg className="w-6 h-6 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
-              <h3 className="text-lg font-semibold text-[#F8F9FA] group-hover:text-[#D4AF37]">Content CMS</h3>
-            </div>
-            <p className="text-sm text-[#aab3bd] mb-2">Visual page builder & content management</p>
-            <p className="text-xs text-[#aab3bd] font-mono">/dashboard/cms</p>
-          </Link>
+
 
           {/* AI Agent Card - Placeholder */}
           <div className="block p-6 rounded-lg bg-[#1F2833]/30 border border-gray-600/20 opacity-60">
