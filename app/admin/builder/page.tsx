@@ -13,7 +13,6 @@ export default function BuilderPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [loadedSlug, setLoadedSlug] = useState<string | null>(null);
 
-  // Load existing page when slug changes
   const loadPage = async (pageSlug: string) => {
     try {
       const response = await fetch(`/api/load-page?slug=${pageSlug}`);
@@ -22,7 +21,6 @@ export default function BuilderPage() {
         setData(pageData);
         setLoadedSlug(pageSlug);
       } else {
-        // Page doesn't exist yet, start fresh
         setData({ root: { props: {} }, content: [] });
         setLoadedSlug(pageSlug);
       }
@@ -32,6 +30,7 @@ export default function BuilderPage() {
   };
 
   const handleSave = async (newData: Data<Props>) => {
+    if (!slug) {
       alert('Please enter a page slug first');
       return;
     }
@@ -45,6 +44,7 @@ export default function BuilderPage() {
       });
       
       if (response.ok) {
+        alert(`Page '${slug}' saved successfully!`);
         setLoadedSlug(slug);
       } else {
         alert('Failed to save page.');
@@ -76,6 +76,7 @@ export default function BuilderPage() {
         </div>
         <button 
           onClick={() => handleSave(data)}
+          disabled={!slug || isSaving}
           className="ml-auto bg-[#D4AF37] text-[#0B0C10] px-4 py-2 rounded font-bold hover:bg-[#b8962e] transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
         >
           {isSaving ? 'Saving...' : 'Publish Page'}
