@@ -4,8 +4,10 @@ import { puckConfig, type Props } from '@/lib/puck-config';
 import fs from 'fs';
 import path from 'path';
 
-export default async function DynamicPage({ params }: { params: { slug: string } }) {
-  const filePath = path.join(process.cwd(), 'content', 'pages', `${params.slug}.json`);
+export default async function DynamicPage({ params }: { params: Promise<{ slug: string }> }) {
+  // Await the params object in Next.js 15
+  const { slug } = await params;
+  const filePath = path.join(process.cwd(), 'content', 'pages', `${slug}.json`);
   
   if (!fs.existsSync(filePath)) {
     notFound();
