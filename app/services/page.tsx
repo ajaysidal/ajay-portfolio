@@ -28,6 +28,7 @@ interface Service {
 
 function getServices(): Service[] {
   const servicesDir = path.join(process.cwd(), "content/services");
+  if (!fs.existsSync(servicesDir)) return [];
   
   const files = fs.readdirSync(servicesDir).filter((f) => f.endsWith(".mdx"));
   return files.map((file) => {
