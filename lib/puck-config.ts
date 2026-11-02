@@ -1,13 +1,23 @@
-import { Config, DefaultData } from '@puckeditor/core';
-import { Hero, HeroData } from '@/components/blocks/Hero';
-import { Features, FeaturesData } from '@/components/blocks/Features';
-import { Content, ContentData } from '@/components/blocks/Content';
+import type { Config } from '@puckeditor/core';
+import { Hero } from '@/components/blocks/Hero';
+import { Features } from '@/components/blocks/Features';
+import { Content } from '@/components/blocks/Content';
 
-export type PageData = {
-  content: (HeroData | FeaturesData | ContentData)[];
+export type Props = {
+  Hero: {
+    tagline: string;
+    headline: string;
+    text: string;
+  };
+  Features: {
+    items: { title: string; text: string }[];
+  };
+  Content: {
+    body: string;
+  };
 };
 
-export const puckConfig: Config<PageData> = {
+export const puckConfig: Config<Props> = {
   components: {
     Hero: {
       fields: {

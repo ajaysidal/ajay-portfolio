@@ -1,18 +1,18 @@
 'use client';
 
-import { Puck, DefaultData } from '@puckeditor/core';
-import { puckConfig, PageData } from '@/lib/puck-config';
+import { Puck, type Data } from '@puckeditor/core';
+import { puckConfig, type Props } from '@/lib/puck-config';
 import { useState } from 'react';
 
 export default function BuilderPage() {
-  const [data, setData] = useState<DefaultData<PageData>>({
+  const [data, setData] = useState<Data<Props>>({
     content: [],
   });
 
-  const handleSave = (newData: DefaultData<PageData>) => {
+  const handleSave = (newData: Data<Props>) => {
     console.log('Saving page data:', JSON.stringify(newData, null, 2));
-    // TODO: Phase 4 - Wire this to save to GitHub API or local Postgres
-    alert('Page layout logged to console! (Database/Git wiring pending in Phase 4)');
+    // TODO: Phase 5 - Wire this to save to GitHub API or local Postgres
+    alert('Page layout logged to console! (Database/Git wiring pending in Phase 5)');
   };
 
   return (
