@@ -2,7 +2,6 @@ import { defineConfig } from "tinacms";
 
 export default defineConfig({
   branch: process.env.NEXT_PUBLIC_TINA_BRANCH || "main",
-  // Fallback to real credentials to guarantee cloud build even if env vars are missed
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "fef64af4-eaf2-4e6f-bd87-1f368c2b9dab",
   token: process.env.TINA_TOKEN || "ec395e26b7df37429193c34e59e66830e4074d6e",
   build: {
@@ -48,8 +47,13 @@ export default defineConfig({
             options: ["draft", "published"],
           },
         ],
+        // VISUAL EDITING ROUTER: Tells CMS which live URL to open for editing
+        ui: {
+          router: ({ document }) => {
+            return `/services`;
+          },
+        },
       },
     ],
   },
 });
-// Force TinaCloud re-index Mon Nov  2 02:06:43 CET 2026
