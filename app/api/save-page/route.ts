@@ -6,6 +6,7 @@ export async function POST(req: NextRequest) {
   try {
     const { slug, data } = await req.json();
     
+    if (!slug || !data) {
       return NextResponse.json({ error: 'Missing slug or data' }, { status: 400 });
     }
 
@@ -13,6 +14,7 @@ export async function POST(req: NextRequest) {
     const filePath = path.join(process.cwd(), 'content', 'pages', `${safeSlug}.json`);
 
     const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
 

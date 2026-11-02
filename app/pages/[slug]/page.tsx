@@ -7,6 +7,7 @@ import path from 'path';
 export default async function DynamicPage({ params }: { params: { slug: string } }) {
   const filePath = path.join(process.cwd(), 'content', 'pages', `${params.slug}.json`);
   
+  if (!fs.existsSync(filePath)) {
     notFound();
   }
 
@@ -22,6 +23,7 @@ export default async function DynamicPage({ params }: { params: { slug: string }
 
 export async function generateStaticParams() {
   const pagesDir = path.join(process.cwd(), 'content', 'pages');
+  if (!fs.existsSync(pagesDir)) return [];
   
   const files = fs.readdirSync(pagesDir).filter((f: string) => f.endsWith('.json'));
   return files.map((file: string) => ({

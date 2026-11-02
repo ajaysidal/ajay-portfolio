@@ -22,6 +22,7 @@ export default function BuilderPage() {
       });
       
       if (response.ok) {
+        alert(`Page '${slug}' saved successfully!`);
       } else {
         alert('Failed to save page.');
       }
