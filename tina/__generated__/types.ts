@@ -171,7 +171,7 @@ export type Services = Node & Document & {
   __typename?: 'Services';
   title: Scalars['String']['output'];
   slug: Scalars['String']['output'];
-  description?: Maybe<Scalars['RichText']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   status?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
@@ -185,16 +185,10 @@ export type StringFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type RichTextFilter = {
-  startsWith?: InputMaybe<Scalars['String']['input']>;
-  eq?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
 export type ServicesFilter = {
   title?: InputMaybe<StringFilter>;
   slug?: InputMaybe<StringFilter>;
-  description?: InputMaybe<RichTextFilter>;
+  description?: InputMaybe<StringFilter>;
   status?: InputMaybe<StringFilter>;
 };
 
@@ -279,7 +273,7 @@ export type DocumentMutation = {
 export type ServicesMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['RichText']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -290,27 +284,21 @@ export type StringFilter = {
   in?: Array<string | null | undefined> | null | undefined;
 };
 
-export type RichTextFilter = {
-  startsWith?: string | null | undefined;
-  eq?: string | null | undefined;
-  exists?: boolean | null | undefined;
-};
-
 export type ServicesFilter = {
   title?: StringFilter | null | undefined;
   slug?: StringFilter | null | undefined;
-  description?: RichTextFilter | null | undefined;
+  description?: StringFilter | null | undefined;
   status?: StringFilter | null | undefined;
 };
 
-export type ServicesPartsFragment = { __typename: 'Services', title: string, slug: string, description: TinaMarkdownContent | null, status: string | null };
+export type ServicesPartsFragment = { __typename: 'Services', title: string, slug: string, description: string | null, status: string | null };
 
 export type ServicesQueryVariables = Exact<{
   relativePath: string;
 }>;
 
 
-export type ServicesQuery = { services: { __typename: 'Services', id: string, title: string, slug: string, description: TinaMarkdownContent | null, status: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type ServicesQuery = { services: { __typename: 'Services', id: string, title: string, slug: string, description: string | null, status: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type ServicesConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -322,7 +310,7 @@ export type ServicesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type ServicesConnectionQuery = { servicesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Services', id: string, title: string, slug: string, description: TinaMarkdownContent | null, status: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type ServicesConnectionQuery = { servicesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Services', id: string, title: string, slug: string, description: string | null, status: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export const ServicesPartsFragmentDoc = gql`
     fragment ServicesParts on Services {

@@ -22,37 +22,14 @@ export default defineConfig({
         path: "content/services",
         format: "mdx",
         fields: [
-          {
-            type: "string",
-            name: "title",
-            label: "Service Title",
-            isTitle: true,
-            required: true,
-          },
-          {
-            type: "string",
-            name: "slug",
-            label: "URL Slug",
-            required: true,
-          },
-          {
-            type: "string",
-            name: "description",
-            label: "Service Description",
-            ui: {
-              component: "textarea",
-            },
-          },
-          {
-            type: "string",
-            name: "status",
-            label: "Status",
-            options: ["draft", "published"],
-          },
+          { type: "string", name: "title", label: "Service Title", isTitle: true, required: true },
+          { type: "string", name: "slug", label: "URL Slug", required: true },
+          { type: "string", name: "description", label: "Service Description", ui: { component: "textarea" } },
+          { type: "string", name: "status", label: "Status", options: ["draft", "published"] },
         ],
         ui: {
           router: ({ document }) => {
-            return `https://buildwithai.digital/services`;
+            return "https://buildwithai.digital/services";
           },
         },
       },
