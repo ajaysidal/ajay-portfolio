@@ -30,7 +30,8 @@ export const puckConfig: Config<Props> = {
         headline: 'Build the Future',
         text: 'Describe your vision here.',
       },
-      render: Hero,
+      // Puck passes props directly, so we wrap them in 'data' for our component
+      render: (props) => <Hero data={props} />,
     },
     Features: {
       fields: {
@@ -46,7 +47,7 @@ export const puckConfig: Config<Props> = {
       defaultProps: {
         items: [{ title: 'Sovereign AI', text: 'Local, secure, and deterministic workflows.' }],
       },
-      render: Features,
+      render: (props) => <Features data={props} />,
     },
     Content: {
       fields: {
@@ -55,7 +56,7 @@ export const puckConfig: Config<Props> = {
       defaultProps: {
         body: 'Add your main content here.',
       },
-      render: Content,
+      render: (props) => <Content data={props} />,
     },
   },
 };

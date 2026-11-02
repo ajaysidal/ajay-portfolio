@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 export default function BuilderPage() {
   const [data, setData] = useState<Data<Props>>({
+    root: { props: {} },
     content: [],
   });
 
