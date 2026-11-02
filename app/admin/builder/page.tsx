@@ -59,29 +59,36 @@ export default function BuilderPage() {
 
   return (
     <div className="h-screen w-full bg-[#0B0C10] text-[#F8F9FA] flex flex-col">
-      <div className="p-4 border-b border-gray-800 flex items-center gap-4 bg-[#0B0C10]">
-        <div className="flex items-center gap-2">
-          <label className="text-sm font-bold">Page Slug:</label>
+      {/* Page Slug Control Bar */}
+      <div className="bg-[#1a1a1a] border-b border-gray-700 p-4 flex items-center gap-4 shrink-0">
+        <div className="flex items-center gap-3 flex-1">
+          <label className="text-sm font-bold text-[#D4AF37]">Page Slug:</label>
           <input 
             type="text" 
             value={slug} 
             onChange={(e) => setSlug(e.target.value)}
             onBlur={(e) => e.target.value && loadPage(e.target.value)}
-            className="bg-gray-800 border border-gray-700 rounded px-3 py-1 text-sm focus:outline-none focus:border-[#D4AF37] w-48"
+            onKeyDown={(e) => e.key === 'Enter' && loadPage(slug)}
+            className="bg-gray-800 border border-gray-600 rounded px-4 py-2 text-sm focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] w-64 text-white placeholder-gray-400"
             placeholder="home, services, about..."
+            autoComplete="off"
           />
           {loadedSlug && (
-            <span className="text-xs text-green-400">Editing: {loadedSlug}</span>
+            <span className="text-xs bg-green-900/50 text-green-400 px-2 py-1 rounded">
+              Editing: {loadedSlug}
+            </span>
           )}
         </div>
         <button 
           onClick={() => handleSave(data)}
           disabled={!slug || isSaving}
-          className="ml-auto bg-[#D4AF37] text-[#0B0C10] px-4 py-2 rounded font-bold hover:bg-[#b8962e] transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+          className="bg-[#D4AF37] text-[#0B0C10] px-6 py-2 rounded-lg font-bold hover:bg-[#b8962e] transition disabled:opacity-50 disabled:cursor-not-allowed text-sm shadow-lg"
         >
           {isSaving ? 'Saving...' : 'Publish Page'}
         </button>
       </div>
+      
+      {/* Puck Editor */}
       <div className="flex-1 overflow-hidden">
         <Puck
           config={puckConfig}
