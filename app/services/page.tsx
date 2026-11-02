@@ -4,6 +4,8 @@ import { ArrowRight, Bot, Server, FileText } from "lucide-react";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { Render } from "@puckeditor/core";
+import { puckConfig, type Props } from "@/lib/puck-config";
 
 export const metadata: Metadata = {
   title: "Services — Ajay Sidal",
@@ -29,24 +31,36 @@ function getServices(): Service[] {
   if (!fs.existsSync(servicesDir)) return [];
   
   const files = fs.readdirSync(servicesDir).filter((f) => f.endsWith(".mdx"));
-
-  return files
-    .map((file) => {
-      const filePath = path.join(servicesDir, file);
-      const content = fs.readFileSync(filePath, "utf-8");
-      const { data, content: description } = matter(content);
-      return {
-        title: data.title,
-        slug: data.slug,
-        description: description.trim(),
-        status: data.status || "published",
-        filename: file,
-      };
-    })
-    .filter((s) => s.status === "published");
+  return files.map((file) => {
+    const filePath = path.join(servicesDir, file);
+    const content = fs.readFileSync(filePath, "utf-8");
+    const { data, content: description } = matter(content);
+    return {
+      title: data.title,
+      slug: data.slug,
+      description: description.trim(),
+      status: data.status || "published",
+      filename: file,
+    };
+  }).filter((s) => s.status === "published");
 }
 
 export default function ServicesPage() {
+  // HYBRID CHECK: Look for a Puck JSON layout first
+  const puckFilePath = path.join(process.cwd(), "content/pages", "services.json");
+  
+  if (fs.existsSync(puckFilePath)) {
+    // If Puck layout exists, render it visually
+    const fileContent = fs.readFileSync(puckFilePath, "utf-8");
+    const data = JSON.parse(fileContent);
+    return (
+      <main className="min-h-screen bg-[#0B0C10] text-[#F8F9FA]">
+        <Render config={puckConfig as any} data={data} />
+      </main>
+    );
+  }
+
+  // FALLBACK: Render the original hardcoded page if no Puck layout exists
   const services = getServices();
 
   return (

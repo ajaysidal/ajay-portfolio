@@ -1,0 +1,36 @@
+{
+  "root": {
+    "props": {}
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "tagline": "Services",
+        "headline": "What I Deliver",
+        "text": "Core service pillars designed to transform your operations through technology, infrastructure, and intelligent automation."
+      },
+      "id": "hero-services"
+    },
+    {
+      "type": "Features",
+      "props": {
+        "items": [
+          {
+            "title": "AI Workflow Automation",
+            "text": "Orchestrating full-scale operations and marketing automation through deterministic AI-driven workflows. Reduce manual effort, eliminate errors, and sc..."
+          },
+          {
+            "title": "Technical Storytelling",
+            "text": "Living documentation and technical storytelling through AI agent collaboration. Transform complex technical architecture into clear, actionable docume..."
+          },
+          {
+            "title": "Web Infrastructure & DevOps",
+            "text": "High-performance web infrastructure with Nginx, Certbot, and DNS optimization. Self-hosted, sovereign, and SOC2-compliant architecture for maximum sec..."
+          }
+        ]
+      },
+      "id": "features-services"
+    }
+  ]
+}
