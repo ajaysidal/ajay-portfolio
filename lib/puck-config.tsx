@@ -30,8 +30,12 @@ export const puckConfig: Config<Props> = {
     },
   },
   categories: {
-    "Layout": ["Hero", "Content"],
-    "Content": ["Features"],
+    Layout: {
+      components: ["Hero", "Content"],
+    },
+    Content: {
+      components: ["Features"],
+    },
   },
   components: {
     Hero: {
