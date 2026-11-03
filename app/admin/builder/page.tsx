@@ -2,30 +2,55 @@
 
 import { Puck, type Data } from "@puckeditor/core";
 import {  puckConfig, type Props , type PuckData } from "@/lib/puck-config";
+import { PuckErrorBoundary } from "@/components/PuckErrorBoundary";
 import { useState } from "react";
+
+// Validation helper to ensure data structure is valid for Puck
+function isValidPuckData(data: unknown): data is PuckData {
+  if (!data || typeof data !== "object") return false;
+  const d = data as Partial<PuckData>;
+  if (!d.root || typeof d.root !== "object") return false;
+  if (!d.root.props || typeof d.root.props !== "object") return false;
+  if (!d.content || !Array.isArray(d.content)) return false;
+  if (!d.zones || typeof d.zones !== "object") return false;
+  return d.content.every(
+    (item) => item && typeof item.type === "string" && item.props && typeof item.props === "object"
+  );
+}
 
 export default function BuilderPage() {
   const [slug, setSlug] = useState("");
   const [data, setData] = useState<PuckData>({
     root: { props: {} },
     content: [],
+    zones: {},
   });
   const [isSaving, setIsSaving] = useState(false);
   const [loadedSlug, setLoadedSlug] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadPage = async (pageSlug: string) => {
+    if (!pageSlug) return;
+    setIsLoading(true);
     try {
-      const response = await fetch(`/api/load-page?slug=${pageSlug}`);
+      const response = await fetch(`/api/puck/load?slug=${pageSlug}`);
       if (response.ok) {
         const pageData = await response.json();
-        setData(pageData);
-        setLoadedSlug(pageSlug);
+        if (isValidPuckData(pageData)) {
+          setData(pageData);
+        } else {
+          console.warn("Invalid Puck data received, using empty structure:", pageData);
+          setData({ root: { props: {} }, content: [], zones: {} });
+        }
       } else {
-        setData({ root: { props: {} }, content: [] });
-        setLoadedSlug(pageSlug);
+        setData({ root: { props: {} }, content: [], zones: {} });
       }
+      setLoadedSlug(pageSlug);
     } catch (error) {
       console.error('Load error:', error);
+      setData({ root: { props: {} }, content: [], zones: {} });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -37,7 +62,7 @@ export default function BuilderPage() {
     
     setIsSaving(true);
     try {
-      const response = await fetch('/api/save-page', {
+      const response = await fetch('/api/puck/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug, data: newData }),
@@ -90,12 +115,16 @@ export default function BuilderPage() {
       
       {/* Puck Editor */}
       <div className="flex-1 overflow-hidden">
-        <Puck
-          config={puckConfig}
-          data={data}
-          onChange={setData}
-          onPublish={handleSave}
-        />
+        <PuckErrorBoundary onError={(error, info) => {
+          console.error("Puck Editor crashed:", error.message, info.componentStack);
+        }}>
+          <Puck
+            config={puckConfig}
+            data={data}
+            onChange={setData}
+            onPublish={handleSave}
+          />
+        </PuckErrorBoundary>
       </div>
     </div>
   );
