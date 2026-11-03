@@ -1,12 +1,12 @@
 "use client";
 
 import { Puck, type Data } from "@puckeditor/core";
-import { puckConfig, type Props } from "@/lib/puck-config";
+import {  puckConfig, type Props , type PuckData } from "@/lib/puck-config";
 import { useState } from "react";
 
 export default function BuilderPage() {
   const [slug, setSlug] = useState("");
-  const [data, setData] = useState<Data<Props>>({
+  const [data, setData] = useState<PuckData>({
     root: { props: {} },
     content: [],
   });
@@ -29,7 +29,7 @@ export default function BuilderPage() {
     }
   };
 
-  const handleSave = async (newData: Data<Props>) => {
+  const handleSave = async (newData: PuckData) => {
     if (!slug) {
       alert('Please enter a page slug first');
       return;

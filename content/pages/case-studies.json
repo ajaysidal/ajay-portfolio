@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "Case Studies",
+      "metaDescription": "Welcome to the case studies page."
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "title": "Case Studies",
+        "description": "This page is ready for visual editing.",
+        "variant": "default"
+      },
+      "id": "b193e501-b440-483f-b521-cf25e0ecf4dc"
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "children": "Start editing this page by adding blocks from the left sidebar."
+      },
+      "id": "76f49a6d-ece8-4ea3-aa0b-f7d50f959609"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "Blog",
+      "metaDescription": "Welcome to the blog page."
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "title": "Blog",
+        "description": "This page is ready for visual editing.",
+        "variant": "default"
+      },
+      "id": "bc9cf6d8-596d-4e7c-ab68-85ee8c3e3cd3"
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "children": "Start editing this page by adding blocks from the left sidebar."
+      },
+      "id": "b9fdfaf7-b902-4211-ad8b-34b74acbafbf"
+    }
+  ]
+}

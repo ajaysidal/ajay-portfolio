@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "Pricing",
+      "metaDescription": "Welcome to the pricing page."
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "title": "Pricing",
+        "description": "This page is ready for visual editing.",
+        "variant": "default"
+      },
+      "id": "18cc906a-49b0-4b5b-aca5-9954d51aa747"
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "children": "Start editing this page by adding blocks from the left sidebar."
+      },
+      "id": "d28a57b3-9db4-47dc-9980-b84dbe141835"
+    }
+  ]
+}

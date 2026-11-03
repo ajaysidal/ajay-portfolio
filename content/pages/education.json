@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "Education",
+      "metaDescription": "Welcome to the education page."
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "title": "Education",
+        "description": "This page is ready for visual editing.",
+        "variant": "default"
+      },
+      "id": "ec599abd-77d0-4321-b896-e90eb5f3c831"
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "children": "Start editing this page by adding blocks from the left sidebar."
+      },
+      "id": "538979d5-c108-4e3c-a32a-d898fefd21b2"
+    }
+  ]
+}

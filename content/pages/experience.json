@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "Experience",
+      "metaDescription": "Welcome to the experience page."
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "title": "Experience",
+        "description": "This page is ready for visual editing.",
+        "variant": "default"
+      },
+      "id": "5d1e9939-b121-4bc0-bf88-da9e5fd069f2"
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "children": "Start editing this page by adding blocks from the left sidebar."
+      },
+      "id": "b599b38f-0500-4f59-aad7-1df3bb842fb6"
+    }
+  ]
+}

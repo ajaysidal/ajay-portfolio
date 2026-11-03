@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "\"Web Infrastructure & DevOps\"",
+      "metaDescription": "Learn more about \"Web Infrastructure & DevOps\""
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "title": "\"Web Infrastructure & DevOps\"",
+        "description": "Discover our \"Web Infrastructure & DevOps\" services.",
+        "variant": "primary"
+      },
+      "id": "8286f2d2-a335-4def-8fa6-dbb0cdb26c0b"
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "children": "High-performance web infrastructure with Nginx, Certbot, and DNS optimization. Self-hosted, sovereign, and SOC2-compliant architecture for maximum security and uptime."
+      },
+      "id": "3c887458-a99c-4a96-946e-fa20fe79f401"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "About",
+      "metaDescription": "Learn more about Build With AI"
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "title": "About Build With AI",
+        "description": "Empowering businesses through sovereign AI solutions and enterprise-grade digital infrastructure.",
+        "variant": "primary"
+      },
+      "id": "3a992fc1-b29c-4d7c-b062-059f7eff1f04"
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "children": "We specialize in building autonomous AI systems, SaaS architectures, and secure open-source platforms that put you in control of your digital future."
+      },
+      "id": "362b96a6-34be-4fd6-9f44-e249a512dc03"
+    }
+  ]
+}

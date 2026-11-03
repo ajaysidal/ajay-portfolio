@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "\"AI Workflow Automation\"",
+      "metaDescription": "Learn more about \"AI Workflow Automation\""
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "title": "\"AI Workflow Automation\"",
+        "description": "Discover our \"AI Workflow Automation\" services.",
+        "variant": "primary"
+      },
+      "id": "909fb36d-99fe-4a8b-a96d-844b13bdb8b7"
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "children": "Orchestrating full-scale operations and marketing automation through deterministic AI-driven workflows. Reduce manual effort, eliminate errors, and scale your operations intelligently."
+      },
+      "id": "ef611bf5-c6a7-4c47-b55f-30b71d934531"
+    }
+  ]
+}

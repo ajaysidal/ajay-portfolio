@@ -2,25 +2,21 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
-import { LayoutDashboard, Activity, Zap, Calendar, FileText, Shield, LogOut, Database } from "lucide-react";
+import { LayoutDashboard, Activity, Zap, Calendar, FileText, Shield, LogOut, LayoutTemplate } from "lucide-react";
 
 export const metadata = {
   robots: { index: false, follow: false },
 };
 
 const navItems = [
+  { href: "https://buildwithai.digital", label: "🏠 Home", icon: LayoutDashboard, external: true },
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
+  { href: "/dashboard/cms", label: "Content CMS", icon: LayoutTemplate },
   { href: "/dashboard/monitoring", label: "Monitoring", icon: Activity },
   { href: "/dashboard/ai", label: "AI Agent", icon: Zap },
   { href: "/dashboard/bookings", label: "Bookings", icon: Calendar },
   { href: "/dashboard/intake", label: "Intake", icon: FileText },
   { href: "/dashboard/audit", label: "Audit Log", icon: Shield },
-  { 
-    href: "https://cms.buildwithai.digital/admin", 
-    label: "Open CMS Editor", 
-    icon: Database,
-    external: true 
-  },
 ];
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -51,7 +47,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         </div>
 
         <nav className="flex-1 p-4 space-y-2">
-          {navItems.map((item) => (
+                    {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}

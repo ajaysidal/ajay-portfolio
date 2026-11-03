@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "\"Technical Storytelling\"",
+      "metaDescription": "Learn more about \"Technical Storytelling\""
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "title": "\"Technical Storytelling\"",
+        "description": "Discover our \"Technical Storytelling\" services.",
+        "variant": "primary"
+      },
+      "id": "d49636f7-1d7c-45e6-82cd-61cd31e91ea2"
+    },
+    {
+      "type": "TextBlock",
+      "props": {
+        "children": "Living documentation and technical storytelling through AI agent collaboration. Transform complex technical architecture into clear, actionable documentation."
+      },
+      "id": "d284f36a-58a1-4984-a751-8e5a2d8ec44b"
+    }
+  ]
+}
