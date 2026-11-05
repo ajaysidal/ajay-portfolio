@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "../components/LayoutWrapper";
+import BackToTop from "../components/BackToTop";
 
 const heading = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -230,6 +231,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${heading.variable} ${body.variable} ${mono.variable}`}>
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -252,6 +255,7 @@ export default function RootLayout({
       </head>
       <body className="font-body bg-bg-primary text-text-primary antialiased overflow-x-hidden">
         <LayoutWrapper>{children}</LayoutWrapper>
+        <BackToTop />
       </body>
     </html>
   );
