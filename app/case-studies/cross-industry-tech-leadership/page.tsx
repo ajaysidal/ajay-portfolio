@@ -1,0 +1,92 @@
+import Link from "next/link";
+import MermaidChart from "@/components/MermaidChart";
+
+export default function CrossIndustryTechLeadership() {
+  return (
+    <article className="py-24 px-6 max-w-5xl mx-auto">
+      <div className="text-center mb-12">
+        <span className="mono block mb-4">Architectural Blueprint</span>
+        <h1 className="text-4xl font-bold tracking-tight mb-4 text-[#F8F9FA]">
+          Cross-Industry Tech Leadership Blueprint
+        </h1>
+      </div>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mt-8 mb-4 text-[#D4AF37]">The Challenge</h2>
+        <div className="prose prose-lg max-w-none text-[#F8F9FA]">
+          <p>
+            Technology leadership is often treated as industry-specific, but the
+            fundamental challenges repeat across sectors. Banking, healthcare,
+            and logistics each face unique constraints but share the same
+            architectural patterns.
+          </p>
+          <p>
+            Organizations struggle to modernize legacy systems without
+            disruption, maintain compliance across regulated industries, and
+            achieve real-time visibility across distributed operations.
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mt-8 mb-4 text-[#D4AF37]">The Sovereign Solution</h2>
+        <div className="prose prose-lg max-w-none text-[#F8F9FA]">
+          <p>
+            We applied cross-industry architectural patterns: deterministic
+            automation, observable infrastructure, and security-by-design. Each
+            industry's context changes the constraints, not the principles.
+          </p>
+          <p>
+            Banking modernization uses wrapper services around legacy systems.
+            Healthcare prioritizes HIPAA compliance and encrypted data. Logistics
+            requires real-time supply chain visibility with offline-first mobile
+            applications.
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <div className="bg-[#0B0C10] border-l-4 border-[#D4AF37] p-6 rounded-lg">
+          <h3 className="text-[#D4AF37] font-bold mb-3 text-sm uppercase tracking-wider">Measurable Outcome</h3>
+          <p className="text-[#F8F9FA] text-lg">
+            <strong>Architecture patterns reusable across 3+ industries</strong>
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mt-8 mb-4 text-[#D4AF37]">Architecture Diagram</h2>
+        <MermaidChart
+          chart={`graph TD
+    A[Banking Systems] --> B[Wrapper Service Layer]
+    C[Healthcare Systems] --> B
+    D[Logistics Systems] --> B
+    B --> E[Event-Driven Data Sync]
+    E --> F[Unified Audit Log]
+    F --> G[Compliance Reporting]
+    H[Real-Time Dashboard] --> F
+    I[Legacy Core Banking] --> B
+    J[EHR System] --> B
+    K[TMS Platform] --> B`}
+        />
+      </section>
+
+      <section className="pt-8 border-t border-[#1F2833]">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            href="/project-intake"
+            className="px-8 py-3 bg-[#D4AF37] text-[#0B0C10] rounded-lg font-bold hover:bg-[#b8962e] transition-colors text-sm"
+          >
+            Submit Project Intake
+          </Link>
+          <Link
+            href="/book"
+            className="px-8 py-3 border border-[#D4AF37] rounded-lg text-[#D4AF37] hover:bg-[#D4AF37]/10 transition-colors text-sm"
+          >
+            Book a Free Discovery Call
+          </Link>
+        </div>
+      </section>
+    </article>
+  );
+}

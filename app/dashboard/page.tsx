@@ -114,9 +114,20 @@ export default async function DashboardOverview() {
             <p className="text-xs text-[#aab3bd] font-mono">/dashboard/audit</p>
           </Link>
 
-          {/* Content CMS Card - ACTIVE */}
-
-
+          {/* Content CMS Card */}
+          <Link
+            href="/dashboard/cms"
+            className="block p-6 rounded-lg bg-[#1F2833]/50 border border-[#D4AF37]/20 hover:border-[#D4AF37] transition-all duration-200 group"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <svg className="w-6 h-6 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2v6m0-6V10m0 2v4a2 2 0 104 0v-4m-4 4h.01M12 16h.01M12 16a2 2 0 100-4m0 4a2 2 0 110-4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10a2 2 0 100 4v-4m2-4v2.01" />
+              </svg>
+              <h3 className="text-lg font-semibold text-[#F8F9FA] group-hover:text-[#D4AF37]">Content CMS</h3>
+            </div>
+            <p className="text-sm text-[#aab3bd] mb-2">Manage pages with Puck CMS</p>
+            <p className="text-xs text-[#aab3bd] font-mono">/dashboard/cms</p>
+          </Link>
           {/* AI Agent Card - Placeholder */}
           <div className="block p-6 rounded-lg bg-[#1F2833]/30 border border-gray-600/20 opacity-60">
             <div className="flex items-center gap-3 mb-3">
