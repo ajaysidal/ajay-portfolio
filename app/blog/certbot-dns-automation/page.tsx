@@ -1,7 +1,17 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import BlogImage from "@/components/BlogImage";
+import MermaidChart from "@/components/MermaidChart";
 import BlogCTA from "@/components/BlogCTA";
+
+const CERTBOT_DNS_AUTOMATION_DIAGRAM = `graph TD
+    A[Certbot Client] -->|1. Request Cert| B[Let's Encrypt API]
+    B -->|2. DNS Challenge| C[DNS Provider API]
+    C -->|3. Create TXT Record| D[Domain DNS]
+    D -->|4. Verify Propagation| B
+    B -->|5. Issue Cert| E[Nginx Server]
+    E -->|6. Reload Nginx| F[Live HTTPS]
+    classDef sovereign fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
+    class E,F sovereign;`;
 
 export const metadata: Metadata = {
   title: "Certbot & DNS Automation: Zero-Touch Certificate Management for Self-Hosted Infrastructure",
@@ -152,9 +162,8 @@ server {
 
         {/* Visual Proof */}
         <section>
-          <BlogImage
-            src="/images/blog/certbot-dns-automation-diagram.png"
-            alt="Certificate and DNS automation architecture showing Certbot, ACME, Nginx, and DNS provider integration"
+          <MermaidChart
+            chart={CERTBOT_DNS_AUTOMATION_DIAGRAM}
             caption="Figure 2: Certificate and DNS automation pipeline with Certbot, ACME challenge validation, Nginx reverse proxy, and DNS provider synchronization"
           />
         </section>

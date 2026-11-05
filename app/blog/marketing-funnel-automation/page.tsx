@@ -1,7 +1,17 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import BlogImage from "@/components/BlogImage";
+import MermaidChart from "@/components/MermaidChart";
 import BlogCTA from "@/components/BlogCTA";
+
+const MARKETING_FUNNEL_AUTOMATION_DIAGRAM = `graph TD
+    A[Inbound Webhook] --> B[Zod Payload Validator]
+    B --> C{Lead Scoring Logic}
+    C -->|High Value| D[Enterprise CRM - HubSpot]
+    C -->|Mid Value| E[SMB CRM - Attio]
+    C -->|Low Value| F[Email Nurture Sequence]
+    D --> G[Account Executive Alert]
+    classDef sovereign fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
+    class B,C sovereign;`;
 
 const WEBHOOK_HANDLER_SNIPPET = `// webhook/lead-router.ts - Deterministic lead routing with Zod validation
 import { z } from "zod";
@@ -243,9 +253,8 @@ export default function MarketingFunnelAutomation() {
 
         {/* Visual Proof */}
         <section>
-          <BlogImage
-            src="/images/blog/marketing-funnel-diagram.png"
-            alt="Deterministic marketing funnel architecture showing lead capture, routing rules, CRM pipeline assignment, and audit logging"
+          <MermaidChart
+            chart={MARKETING_FUNNEL_AUTOMATION_DIAGRAM}
             caption="Figure 2: Deterministic marketing funnel architecture with lead capture, routing rules, CRM pipeline assignment, and audit logging"
           />
         </section>

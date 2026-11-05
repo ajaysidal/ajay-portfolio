@@ -1,7 +1,18 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import BlogImage from "@/components/BlogImage";
+import MermaidChart from "@/components/MermaidChart";
 import BlogCTA from "@/components/BlogCTA";
+
+const LIVING_DOCS_DIAGRAM = `graph TD
+    A[Git Commit / Code Change] --> B[Webhook Trigger]
+    B --> C[Doc Generation Agent]
+    C --> D[AST Parser]
+    D --> E[Extract Comments & Types]
+    E --> F[LLM Summarizer]
+    F --> G[Markdown Generator]
+    G --> H[Update /docs Directory]
+    classDef sovereign fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
+    class C,F sovereign;`;
 
 export const metadata: Metadata = {
   title: "Living Documentation: How AI Agents Transform Static Codebases into Dynamic Knowledge",
@@ -179,9 +190,8 @@ export default function LivingDocumentationStorytelling() {
 
         {/* Visual Proof */}
         <section>
-          <BlogImage
-            src="/images/blog/living-docs-diagram.png"
-            alt="AI agent documentation pipeline showing code scanning, commit analysis, and auto-generated Markdown output"
+          <MermaidChart
+            chart={LIVING_DOCS_DIAGRAM}
             caption="Figure 2: Living documentation pipeline with AI agent scanning code, parsing commits, and generating Markdown output"
           />
         </section>

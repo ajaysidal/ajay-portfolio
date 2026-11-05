@@ -1,7 +1,18 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import BlogImage from "@/components/BlogImage";
+import MermaidChart from "@/components/MermaidChart";
 import BlogCTA from "@/components/BlogCTA";
+
+const CASE_STUDIES_OPEN_SOURCE_DIAGRAM = `graph TD
+    A[Pull Request] --> B[GitHub Actions]
+    B --> C[Lint & Type Check]
+    C --> D[Security Scan - Trivy]
+    D --> E[Dependency Audit]
+    E --> F[Build & Test]
+    F -->|Pass| G[Merge to Main]
+    F -->|Fail| H[Block Merge]
+    classDef sovereign fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
+    class D,E sovereign;`;
 
 export const metadata: Metadata = {
   title: "Open-Source Case Studies: How Public Repositories Drive Enterprise Innovation",
@@ -160,9 +171,8 @@ jobs:
 
         {/* Visual Proof */}
         <section>
-          <BlogImage
-            src="/images/blog/case-studies-open-source-diagram.png"
-            alt="Open-source architecture diagram showing public repositories, automated security scanning, and community trust boundaries"
+          <MermaidChart
+            chart={CASE_STUDIES_OPEN_SOURCE_DIAGRAM}
             caption="Figure 1: Open-source architecture with public repositories, automated CI/CD security scanning, and verifiable community trust"
           />
         </section>

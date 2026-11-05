@@ -1,7 +1,20 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import BlogImage from "@/components/BlogImage";
+import MermaidChart from "@/components/MermaidChart";
 import BlogCTA from "@/components/BlogCTA";
+
+const AI_WORKFLOWS_DIAGRAM = `graph TD
+    A[User Prompt] --> B[Orchestrator Agent]
+    B --> C{Intent Classifier}
+    C -->|Data Query| D[SQL Agent]
+    C -->|Code Gen| E[Python Agent]
+    C -->|General| F[LLM Direct]
+    D --> G[Zod Output Validator]
+    E --> G
+    F --> G
+    G --> H[Final Response]
+    classDef sovereign fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
+    class B,C,G sovereign;`;
 
 export const metadata: Metadata = {
   title: "Building Deterministic AI Workflows: Eliminating Hallucinations in Enterprise Operations",
@@ -137,9 +150,8 @@ export function validateWorkflowStep(
 
         {/* Visual Proof */}
         <section>
-          <BlogImage
-            src="/images/blog/ai-workflows-diagram.png"
-            alt="Deterministic AI workflow architecture showing input validation, AI extraction layer, and auditable execution pipeline"
+          <MermaidChart
+            chart={AI_WORKFLOWS_DIAGRAM}
             caption="Figure 1: Deterministic AI workflow architecture with validated inputs, AI extraction, and auditable execution"
           />
         </section>

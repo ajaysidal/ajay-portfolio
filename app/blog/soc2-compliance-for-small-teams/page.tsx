@@ -1,7 +1,20 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import BlogImage from "@/components/BlogImage";
+import MermaidChart from "@/components/MermaidChart";
 import BlogCTA from "@/components/BlogCTA";
+
+const SOC2_COMPLIANCE_DIAGRAM = `graph TD
+    A[Scheduled Cron Job] --> B[Compliance Agent]
+    B --> C{Check UFW Status}
+    B --> D{Check SSH Config}
+    B --> E{Check Auditd Logs}
+    C --> F[Generate Evidence JSON]
+    D --> F
+    E --> F
+    F --> G[(Secure Evidence DB)]
+    G --> H[Auditor Dashboard]
+    classDef sovereign fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
+    class B,F sovereign;`;
 
 const BASH_COMPLIANCE_SCRIPT = `# compliance-evidence.sh - Automated SOC 2 evidence collection
 # Run weekly via cron and store output in /var/log/compliance/
@@ -184,9 +197,8 @@ export default function Soc2ComplianceSmallTeams() {
 
         {/* Visual Proof */}
         <section>
-          <BlogImage
-            src="/images/blog/soc2-compliance-diagram.png"
-            alt="SOC 2 compliance architecture showing automated evidence collection, SSH key authentication, UFW firewall, and audit log storage"
+          <MermaidChart
+            chart={SOC2_COMPLIANCE_DIAGRAM}
             caption="Figure 1: SOC 2 compliance architecture with automated evidence collection, access controls, and audit trail storage"
           />
         </section>

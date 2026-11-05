@@ -1,7 +1,17 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import BlogImage from "@/components/BlogImage";
+import MermaidChart from "@/components/MermaidChart";
 import BlogCTA from "@/components/BlogCTA";
+
+const CROSS_INDUSTRY_TECH_LEADERSHIP_DIAGRAM = `graph TD
+    A[Legacy Banking API] --> B[Adapter Pattern Interface]
+    C[Healthcare FHIR API] --> B
+    D[Logistics EDI API] --> B
+    B --> E[Unified Internal Service]
+    E --> F[Core Business Logic]
+    F --> G[Standardized Output]
+    classDef sovereign fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
+    class B,E sovereign;`;
 
 const ADAPTER_PATTERN_SNIPPET = `// gateway-adapter.ts - Unified interface for cross-industry payment gateways
 import { z } from "zod";
@@ -318,9 +328,8 @@ export default function CrossIndustryTechLeadership() {
 
         {/* Visual Proof */}
         <section>
-          <BlogImage
-            src="/images/blog/cross-industry-tech-leadership-diagram.png"
-            alt="Cross-industry architecture diagram showing banking, healthcare, and logistics systems unified through adapter pattern"
+          <MermaidChart
+            chart={CROSS_INDUSTRY_TECH_LEADERSHIP_DIAGRAM}
             caption="Figure 1: Cross-industry architecture with unified PaymentGateway interface and industry-specific adapters"
           />
         </section>

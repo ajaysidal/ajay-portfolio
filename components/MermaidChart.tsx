@@ -5,9 +5,10 @@ import mermaid from "mermaid";
 
 interface MermaidChartProps {
   chart: string;
+  caption?: string;
 }
 
-export default function MermaidChart({ chart }: MermaidChartProps) {
+export default function MermaidChart({ chart, caption }: MermaidChartProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [rendered, setRendered] = useState(false);
 
@@ -40,6 +41,11 @@ export default function MermaidChart({ chart }: MermaidChartProps) {
   return (
     <div className="bg-[#0B0C10] p-6 rounded-lg border border-[#D4AF37]/20">
       <div ref={ref} />
+      {caption && (
+        <p className="text-sm text-[#aab3bd] text-center mt-2 italic px-4 pb-4">
+          {caption}
+        </p>
+      )}
     </div>
   );
 }

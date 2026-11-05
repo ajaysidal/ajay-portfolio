@@ -1,7 +1,20 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import BlogImage from "@/components/BlogImage";
+import MermaidChart from "@/components/MermaidChart";
 import BlogCTA from "@/components/BlogCTA";
+
+const SOVEREIGN_AI_ETHOS_DIAGRAM = `graph TD
+    User[Enterprise User] -->|Secure Request| Gateway[Internal API Gateway]
+    subgraph Sovereign Stack [Self-Hosted Environment]
+        Gateway --> Orchestrator[AI Orchestrator]
+        Orchestrator -->|Local Inference| Ollama[(Ollama)]
+        Ollama -->|Loads Model| LLM[Llama 3 / Mistral]
+        Orchestrator --> DB[(Local Vector DB)]
+    end
+    LLM -->|JSON Output| Orchestrator
+    Orchestrator -->|Response| User
+    classDef sovereign fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
+    class Sovereign Stack,Ollama,LLM,DB sovereign;`;
 
 export const metadata: Metadata = {
   title: "The Sovereign AI Ethos: Why Self-Hosted Data Is the Future of Trust",
@@ -133,9 +146,8 @@ volumes:
 
         {/* Visual Proof */}
         <section>
-          <BlogImage
-            src="/images/blog/sovereign-ai-ethos-diagram.png"
-            alt="Sovereign AI architecture showing local Ollama inference with data residency boundaries and no external API calls"
+          <MermaidChart
+            chart={SOVEREIGN_AI_ETHOS_DIAGRAM}
             caption="Figure 1: Sovereign AI architecture with local Ollama inference, data residency enforcement, and zero external data transmission"
           />
         </section>

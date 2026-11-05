@@ -1,7 +1,19 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import BlogImage from "@/components/BlogImage";
+import MermaidChart from "@/components/MermaidChart";
 import BlogCTA from "@/components/BlogCTA";
+
+const OPERATION_AUTOMATION_DIAGRAM = `graph TD
+    A[Client Request / Webhook] --> B{API Gateway}
+    B -->|Invalid Payload| C[Return 400 Bad Request]
+    B -->|Valid Payload| D[Zod Schema Validator]
+    D -->|Validation Fails| C
+    D -->|Validation Passes| E[Deterministic AI Agent]
+    E --> F[Structured JSON Output]
+    F --> G[(PostgreSQL Database)]
+    G --> H[Client Success Response]
+    classDef sovereign fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
+    class D,E sovereign;`;
 
 export const metadata: Metadata = {
   title: "Building Deterministic AI Workflows: Eliminating Hallucinations in Enterprise Operations",
@@ -146,9 +158,8 @@ export function validateAutomationInput(
 
         {/* Visual Proof */}
         <section>
-          <BlogImage
-            src="/images/blog/operational-automation-diagram.png"
-            alt="Deterministic automation workflow architecture showing input validation, AI extraction, and auditable execution"
+          <MermaidChart
+            chart={OPERATION_AUTOMATION_DIAGRAM}
             caption="Figure 1: Deterministic automation architecture with validated inputs, AI extraction layer, and auditable execution pipeline"
           />
         </section>

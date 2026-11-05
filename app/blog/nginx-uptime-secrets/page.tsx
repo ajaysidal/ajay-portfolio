@@ -1,7 +1,20 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import BlogImage from "@/components/BlogImage";
+import MermaidChart from "@/components/MermaidChart";
 import BlogCTA from "@/components/BlogCTA";
+
+const NGINX_UPTIME_DIAGRAM = `graph TD
+    Client[Client Traffic] --> DNS[DNS Round Robin]
+    DNS --> LB1[Nginx Primary LB]
+    DNS --> LB2[Nginx Secondary LB]
+    LB1 --> App1[App Server 1]
+    LB1 --> App2[App Server 2]
+    LB2 -.->|Failover| App1
+    LB2 -.->|Failover| App2
+    App1 --> DB[(Primary DB)]
+    App2 --> DB
+    classDef nginx fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
+    class LB1,LB2 nginx;`;
 
 export const metadata: Metadata = {
   title: "Nginx Uptime Secrets: Designing Self-Hosted Infrastructure That Never Breaks",
@@ -145,9 +158,8 @@ server {
 
         {/* Visual Proof */}
         <section>
-          <BlogImage
-            src="/images/blog/nginx-uptime-diagram.png"
-            alt="High-availability Nginx architecture showing load balancer, multiple backend instances, Certbot automation, and health checks"
+          <MermaidChart
+            chart={NGINX_UPTIME_DIAGRAM}
             caption="Figure 2: High-availability Nginx architecture with load balancing, automated certificate management, and health check endpoints"
           />
         </section>
