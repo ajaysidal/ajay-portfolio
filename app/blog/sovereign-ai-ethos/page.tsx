@@ -5,7 +5,7 @@ import BlogCTA from "@/components/BlogCTA";
 
 const SOVEREIGN_AI_ETHOS_DIAGRAM = `graph TD
     User[Enterprise User] -->|Secure Request| Gateway[Internal API Gateway]
-    subgraph Sovereign Stack [Self-Hosted Environment]
+    subgraph Sovereign_Stack [Self-Hosted Environment]
         Gateway --> Orchestrator[AI Orchestrator]
         Orchestrator -->|Local Inference| Ollama[(Ollama)]
         Ollama -->|Loads Model| LLM[Llama 3 / Mistral]
@@ -14,7 +14,7 @@ const SOVEREIGN_AI_ETHOS_DIAGRAM = `graph TD
     LLM -->|JSON Output| Orchestrator
     Orchestrator -->|Response| User
     classDef sovereign fill:#1F2833,stroke:#D4AF37,stroke-width:2px,color:#F8F9FA;
-    class Sovereign Stack,Ollama,LLM,DB sovereign;`;
+    class Sovereign_Stack,Ollama,LLM,DB sovereign;`;
 
 export const metadata: Metadata = {
   title: "The Sovereign AI Ethos: Why Self-Hosted Data Is the Future of Trust",

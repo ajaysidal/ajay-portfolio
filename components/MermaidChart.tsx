@@ -39,8 +39,8 @@ export default function MermaidChart({ chart, caption }: MermaidChartProps) {
   }, [chart, rendered]);
 
   return (
-    <div className="bg-[#0B0C10] p-6 rounded-lg border border-[#D4AF37]/20">
-      <div ref={ref} />
+    <div className="bg-[#0B0C10] p-6 rounded-lg border border-[#D4AF37]/20 flex flex-col items-center justify-center">
+      <div ref={ref} className="w-full max-w-[600px] mx-auto" />
       {caption && (
         <p className="text-sm text-[#aab3bd] text-center mt-2 italic px-4 pb-4">
           {caption}
