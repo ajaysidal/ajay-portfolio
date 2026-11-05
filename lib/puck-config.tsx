@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import type { Config, Data } from "@puckeditor/core";
 
@@ -103,9 +104,9 @@ export const puckConfig: Config<ComponentMap, RootProps> = {
                 {text && <p className="text-[#aab3bd] text-lg max-w-2xl mx-auto mb-8">{text}</p>}
                 {!text && description && <p className="text-lg text-[#aab3bd] max-w-2xl mx-auto">{description}</p>}
                 {ctaText && ctaLink && (
-                  <a href={ctaLink} className="inline-flex items-center gap-2 px-6 py-3 bg-[#D4AF37] text-[#0B0C10] rounded-lg font-bold hover:bg-[#b8962e] transition-all">
+                  <Link href={ctaLink} className="inline-flex items-center gap-2 px-6 py-3 bg-[#D4AF37] text-[#0B0C10] rounded-lg font-bold hover:bg-[#b8962e] transition-all">
                     {ctaText} <span className="w-5 h-5">{">"}</span>
-                  </a>
+                  </Link>
                 )}
               </div>
             </section>

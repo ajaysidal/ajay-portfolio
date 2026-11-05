@@ -6,9 +6,11 @@
     {
       "type": "Hero",
       "props": {
-        "tagline": "Services",
-        "headline": "What I Deliver",
-        "text": "Core service pillars designed to transform your operations through technology, infrastructure, and intelligent automation."
+        "tagline": "Take Back Your Time",
+        "headline": "Let AI Handle the Busywork.",
+        "text": "You started your business to do what you love, not to drown in admin, missed leads, and repetitive tasks. We build simple, reliable AI automations that work quietly in the background, so you can focus on growing your business.",
+        "ctaText": "Book a Free 30-Minute Growth Call",
+        "ctaLink": "/book"
       },
       "id": "hero-services"
     },
@@ -17,16 +19,19 @@
       "props": {
         "items": [
           {
-            "title": "AI Workflow Automation",
-            "text": "Orchestrating full-scale operations and marketing automation through deterministic AI-driven workflows. Reduce manual effort, eliminate errors, and sc..."
+            "title": "Automate the Busywork",
+            "text": "We connect your existing tools (like email, CRM, and calendar) to work together automatically. From instant lead follow-ups to automated invoicing, we eliminate the manual tasks that slow you down. Perfect for Real Estate, Trades, and Professional Services.",
+            "icon": "zap"
           },
           {
-            "title": "Technical Storytelling",
-            "text": "Living documentation and technical storytelling through AI agent collaboration. Transform complex technical architecture into clear, actionable docume..."
+            "title": "Websites That Work While You Sleep",
+            "text": "A slow or broken website costs you customers. We build and maintain fast, secure, and mobile-friendly websites that capture leads effortlessly, complete with automated booking and contact forms. Perfect for Healthcare, Retail, and Hospitality.",
+            "icon": "globe"
           },
           {
-            "title": "Web Infrastructure & DevOps",
-            "text": "High-performance web infrastructure with Nginx, Certbot, and DNS optimization. Self-hosted, sovereign, and SOC2-compliant architecture for maximum sec..."
+            "title": "Never Lose Institutional Knowledge",
+            "text": "When a team member leaves, their knowledge shouldn't leave with them. We set up smart, self-updating documentation systems that train new staff faster and keep your operations running smoothly, no matter who is on shift.",
+            "icon": "file"
           }
         ]
       },
