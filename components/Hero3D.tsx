@@ -28,7 +28,7 @@ const Hero3D = () => {
   }, []);
 
   return (
-    <canvas
+    <Canvas
       ref={canvasRef}
       className="absolute top-0 left-0 w-full h-full -z-10"
     >
@@ -61,7 +61,7 @@ const Hero3D = () => {
           />
         </mesh>
       </Float>
-    </canvas>
+    </Canvas>
   );
 };
 
