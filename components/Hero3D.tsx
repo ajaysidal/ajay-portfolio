@@ -5,6 +5,15 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshDistortMaterial, Float } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 
+// Suppress THREE.Clock deprecation warning from @react-three/fiber internals
+const originalWarn = console.warn;
+console.warn = (...args: any[]) => {
+  if (typeof args[0] === "string" && args[0].includes("THREE.Clock")) {
+    return;
+  }
+  originalWarn.apply(console, args);
+};
+
 const Hero3D = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const meshRef = useRef<THREE.Mesh>(null);
