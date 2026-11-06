@@ -134,6 +134,7 @@ try {
                   <input
                     type="text"
                     name="fullName"
+                    autoComplete="name"
                     value={formData.fullName}
                     onChange={handleChange}
                     required
@@ -145,6 +146,7 @@ try {
                   <input
                     type="email"
                     name="email"
+                    autoComplete="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
@@ -154,10 +156,11 @@ try {
               </div>
               <div>
                 <label className="block text-sm text-[#F8F9FA] mb-1">Phone</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone || ""}
+                  <input
+                    type="tel"
+                    name="phone"
+                    autoComplete="tel"
+                    value={formData.phone || ""}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-[#1F2833] rounded-lg bg-[#0B0C10] text-[#F8F9FA] placeholder-[#aab3bd] focus:outline-none focus:border-[#D4AF37]"
                 />

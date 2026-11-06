@@ -139,6 +139,7 @@ try {
               <input
                 type="url"
                 name="companyWebsite"
+                autoComplete="url"
                 value={formData.companyWebsite || ""}
                 onChange={handleChange}
                 placeholder="https://example.com"

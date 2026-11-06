@@ -73,6 +73,7 @@ export default function Footer() {
                 <input
                   type="email"
                   name="email"
+                  autoComplete="email"
                   value={newsletterEmail}
                   onChange={handleNewsletterChange}
                   placeholder="Enter your email"
