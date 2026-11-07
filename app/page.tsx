@@ -15,27 +15,27 @@ export default function Home() {
       <Hero3DBackground />
 
       <div className="relative z-10 px-4 max-w-5xl mx-auto">
-        <span className="mono mb-6 block">Auckland, New Zealand</span>
-        <h1 className="text-[clamp(3.2rem,12vw,9rem)] font-extrabold tracking-tight leading-[1.05]">
-          Ajay Sidal
+        <span className="mono mb-4 block text-[#D4AF37] font-semibold tracking-wider uppercase text-sm">Take Back Your Time</span>
+        <h1 className="text-[clamp(2.5rem,8vw,5rem)] font-extrabold tracking-tight leading-[1.1] text-[#F8F9FA]">
+          Let AI Handle the Busywork.
         </h1>
-        <p className="text-[clamp(1rem,2.6vw,1.5rem)] text-[#aab3bd] mt-6 mb-10 font-medium">
-          Technology &amp; Operations Leader | Creative Technologist
+        <p className="text-[clamp(1rem,2.2vw,1.25rem)] text-[#aab3bd] mt-6 mb-10 max-w-3xl mx-auto leading-relaxed">
+          You started your business to do what you love, not to drown in admin, missed leads, and repetitive tasks. We build simple, reliable AI automations that work quietly in the background, so you can focus on growing your business.
         </p>
 
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-[#D4AF37] rounded-full text-[#F8F9FA] hover:bg-[#D4AF37] hover:text-[#0B0C10] transition-all duration-200"
+            href="/book"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-[#D4AF37] text-[#0B0C10] font-bold rounded-full hover:bg-[#E5C25A] transition-all duration-200 shadow-lg shadow-[#D4AF37]/20"
           >
-            Get in touch
-            <ArrowRight className="w-4 h-4" />
+            Book a Free 30-Minute Growth Call
+            <ArrowRight className="w-5 h-5" />
           </Link>
           <Link
-            href="/services"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-[#1F2833] rounded-full text-[#F8F9FA] hover:border-[#D4AF37] transition-all duration-200"
+            href="/case-studies"
+            className="inline-flex items-center gap-2 px-8 py-4 border border-[#D4AF37] text-[#F8F9FA] font-semibold rounded-full hover:bg-[#D4AF37]/10 transition-all duration-200"
           >
-            Explore Services
+            See How It Works
           </Link>
         </div>
 
