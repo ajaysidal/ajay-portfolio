@@ -4,12 +4,12 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ArrowRight, Cpu, Server, BookOpen } from "lucide-react";
 
-const Hero3DBackground = dynamic(
-  () => import("../components/Hero3DBackground"),
+const RecursiveErosionBackground = dynamic(
+  () => import("../components/ui/recursive-erosion"),
   {
     ssr: false,
     loading: () => (
-      <div className="absolute inset-0 bg-linear-to-br from-bg-primary via-bg-secondary to-bg-primary" />
+      <div className="absolute inset-0 w-full h-full bg-linear-to-br from-bg-primary via-bg-secondary to-bg-primary" />
     ),
   }
 );
@@ -17,7 +17,9 @@ const Hero3DBackground = dynamic(
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-24">
-      <Hero3DBackground />
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <RecursiveErosionBackground mode="dark" className="h-full w-full" />
+      </div>
 
       <div className="relative z-10 px-4 max-w-5xl mx-auto">
         <span className="mono mb-4 block text-gold font-semibold tracking-wider uppercase text-sm">

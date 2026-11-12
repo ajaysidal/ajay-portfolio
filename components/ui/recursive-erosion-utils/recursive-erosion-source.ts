@@ -1,309 +1,211 @@
 /**
- * Recursive Erosion Source
+ * Recursive Erosion — self-contained HTML document source.
+ * Rendered inside a sandboxed iframe (allow-scripts only).
+ * Three.js dependency removed: Canvas 2D API used instead for zero external network requests.
  *
- * Configuration and utility functions for the recursive erosion particle system.
- * This module defines the erosion algorithm parameters, color palettes, and
- * mathematical utilities used by the RecursiveErosionBackground component.
- *
- * The erosion algorithm works by:
- * 1. Emitting particles from a central point
- * 2. Each particle travels outward, leaving a trail
- * 3. Particles decay (erode) over time based on distance and age
- * 4. New particles spawn from eroded points, creating recursive fractal patterns
- * 5. The result is an organic, geological-looking sphere that slowly evolves
+ * Contract required by recursive-erosion.tsx:
+ *  - #stage element (promoted to fixed fullscreen background)
+ *  - #badge and .sr elements (hidden by the focus script)
+ *  - </head> and </body> injection points
  */
+export const recursiveErosionSource = String.raw`<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Recursive Erosion</title>
+<style>
+  html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #0a0908; overflow: hidden; }
+  #stage { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #stage canvas { display: block; width: 100%; height: 100%; }
+  #badge { position: fixed; left: 12px; bottom: 10px; font: 11px/1.4 monospace; color: #d4af37; opacity: 0.6; letter-spacing: 0.12em; text-transform: uppercase; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  #fallback { position: absolute; inset: 0; display: none; background: radial-gradient(ellipse at 50% 45%, rgba(212,175,55,0.16), rgba(10,9,8,0) 60%); }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="fallback"></div>
+<div id="badge">Recursive Erosion</div>
+<p class="sr">Animated particle sphere with recursive erosion trails.</p>
+<script>
+var stage = document.getElementById("stage");
+var fallback = document.getElementById("fallback");
+var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-import * as THREE from 'three';
+var canvas = document.createElement("canvas");
+canvas.style.display = "block";
+stage.appendChild(canvas);
+var ctx = canvas.getContext("2d", { alpha: true });
 
-// ============================================================================
-// Configuration
-// ============================================================================
-
-export interface ErosionConfig {
-  /** Number of particles in the system */
-  particleCount: number;
-  /** Base color hue (0-360) */
-  hue: number;
-  /** Saturation multiplier (0-2) */
-  saturation: number;
-  /** Brightness multiplier (0-2) */
-  brightness: number;
-  /** Erosion speed (particles per second) */
-  erosionSpeed: number;
-  /** Particle lifetime in seconds */
-  particleLifetime: number;
-  /** Maximum recursion depth for erosion branches */
-  maxRecursionDepth: number;
-  /** Probability of a particle spawning a child (0-1) */
-  spawnProbability: number;
-  /** Minimum distance between parent and child particles */
-  minSpawnDistance: number;
-  /** Maximum distance particles can travel from center */
-  maxRadius: number;
-  /** Rotation speed of the entire system (radians per second) */
-  rotationSpeed: number;
-  /** Whether the system pulses over time */
-  pulseEnabled: boolean;
-  /** Pulse speed in radians per second */
-  pulseSpeed: number;
+function resize() {
+  var w = stage.clientWidth || window.innerWidth;
+  var h = stage.clientHeight || window.innerHeight;
+  canvas.width = w;
+  canvas.height = h;
 }
+resize();
+window.addEventListener("resize", resize);
 
-/**
- * Default configuration optimized for the Sovereign brand aesthetic.
- * Uses gold/yellow tones (hue ~45) with dark background compatibility.
- */
-export const DEFAULT_EROSION_CONFIG: ErosionConfig = {
-  particleCount: 1500,
-  hue: 45, // Gold
-  saturation: 1.3,
-  brightness: 0.85,
-  erosionSpeed: 0.5,
-  particleLifetime: 3.0,
-  maxRecursionDepth: 5,
-  spawnProbability: 0.15,
-  minSpawnDistance: 0.15,
-  maxRadius: 4.5,
-  rotationSpeed: 0.15,
-  pulseEnabled: true,
-  pulseSpeed: 1.5,
-};
+var MAX = 1500;
+var RADIUS = 1.55;
+var positions = new Float32Array(MAX * 3);
+var colors = new Float32Array(MAX * 3);
+var baseCol = new Float32Array(MAX * 3);
+var vel = new Float32Array(MAX * 3);
+var age = new Float32Array(MAX);
+var life = new Float32Array(MAX);
+var gen = new Uint8Array(MAX);
 
-// ============================================================================
-// Color Utilities
-// ============================================================================
-
-/**
- * Convert HSL color to RGB
- */
-export function hslToRgb(h: number, s: number, l: number): { r: number; g: number; b: number } {
-  h = h % 360;
-  if (h < 0) h += 360;
-
-  s = Math.max(0, Math.min(1, s));
-  l = Math.max(0, Math.min(1, l));
-
-  const c = (1 - Math.abs(2 * l - 1)) * s;
-  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
-  const m = l - c / 2;
-
-  let r = 0,
-    g = 0,
-    b = 0;
-
-  if (h < 60) {
-    r = c;
-    g = x;
-    b = 0;
-  } else if (h < 120) {
-    r = x;
-    g = c;
-    b = 0;
-  } else if (h < 180) {
-    r = 0;
-    g = c;
-    b = x;
-  } else if (h < 240) {
-    r = 0;
-    g = x;
-    b = c;
-  } else if (h < 300) {
-    r = x;
-    g = 0;
-    b = c;
+function hslToRgb(h, s, l) {
+  var r, g, b;
+  if (s === 0) {
+    r = g = b = l;
   } else {
-    r = c;
-    g = 0;
-    b = x;
+    var hue2rgb = function hue2rgb(p, q, t) {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    };
+    var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    var p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1 / 3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1 / 3);
   }
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
 
+function paint(i) {
+  var l = 0.55 + Math.random() * 0.25 - gen[i] * 0.06;
+  var rgb = hslToRgb(0.115 + (Math.random() - 0.5) * 0.03, 0.72, Math.max(0.25, l));
+  baseCol[i * 3] = rgb[0] / 255;
+  baseCol[i * 3 + 1] = rgb[1] / 255;
+  baseCol[i * 3 + 2] = rgb[2] / 255;
+}
+
+function seedSurface(i) {
+  var k = i + 0.5;
+  var phi = Math.acos(1 - 2 * k / MAX);
+  var theta = Math.PI * (1 + Math.sqrt(5)) * k;
+  var x = Math.sin(phi) * Math.cos(theta);
+  var y = Math.sin(phi) * Math.sin(theta);
+  var z = Math.cos(phi);
+  positions[i * 3] = x * RADIUS;
+  positions[i * 3 + 1] = y * RADIUS;
+  positions[i * 3 + 2] = z * RADIUS;
+  var speed = 0.05 + Math.random() * 0.1;
+  vel[i * 3] = x * speed + (Math.random() - 0.5) * 0.03;
+  vel[i * 3 + 1] = y * speed + (Math.random() - 0.5) * 0.03;
+  vel[i * 3 + 2] = z * speed + (Math.random() - 0.5) * 0.03;
+  age[i] = 0;
+  life[i] = 4 + Math.random() * 5;
+  gen[i] = 0;
+  paint(i);
+}
+
+function seedChild(i, px, py, pz, g) {
+  positions[i * 3] = px;
+  positions[i * 3 + 1] = py;
+  positions[i * 3 + 2] = pz;
+  var len = Math.sqrt(px * px + py * py + pz * pz) || 1;
+  var speed = 0.06 + Math.random() * 0.12;
+  vel[i * 3] = (px / len) * speed + (Math.random() - 0.5) * 0.1;
+  vel[i * 3 + 1] = (py / len) * speed + (Math.random() - 0.5) * 0.1;
+  vel[i * 3 + 2] = (pz / len) * speed + (Math.random() - 0.5) * 0.1;
+  age[i] = 0;
+  life[i] = 2.5 + Math.random() * 3.5;
+  gen[i] = g;
+  paint(i);
+}
+
+for (var i = 0; i < MAX; i++) seedSurface(i);
+
+var clock = Date.now();
+var running = true;
+var cx, cy, cz;
+
+function project(x, y, z) {
+  var fov = 500;
+  var factor = fov / (fov + z + 4.6);
   return {
-    r: Math.round((r + m) * 255),
-    g: Math.round((g + m) * 255),
-    b: Math.round((b + m) * 255),
+    x: x * factor + cx,
+    y: y * factor + cy
   };
 }
 
-/**
- * Convert RGB to THREE.Color
- */
-export function rgbToThreeColor(r: number, g: number, b: number): THREE.Color {
-  return new THREE.Color(r / 255, g / 255, b / 255);
-}
+function step(dt, t) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.globalCompositeOperation = "lighter";
 
-/**
- * Convert HSL to THREE.Color directly
- */
-export function hslToThreeColor(h: number, s: number, l: number): THREE.Color {
-  const rgb = hslToRgb(h, s, l);
-  return rgbToThreeColor(rgb.r, rgb.g, rgb.b);
-}
+  cx = canvas.width / 2;
+  cy = canvas.height / 2;
+  cz += dt * 0.06;
 
-// ============================================================================
-// Math Utilities
-// ============================================================================
+  for (var i = 0; i < MAX; i++) {
+    age[i] += dt;
+    if (age[i] >= life[i]) {
+      var px = positions[i * 3], py = positions[i * 3 + 1], pz = positions[i * 3 + 2];
+      if (gen[i] < 3 && Math.random() < 0.65) {
+        seedChild(i, px, py, pz, gen[i] + 1);
+        if (Math.random() < 0.35) {
+          var j = (Math.random() * MAX) | 0;
+          if (age[j] > life[j] * 0.5) seedChild(j, px, py, pz, gen[i] + 1);
+        }
+      } else {
+        seedSurface(i);
+      }
+    }
+    var ix = i * 3;
+    var x = positions[ix], y = positions[ix + 1], z = positions[ix + 2];
+    vel[ix] += Math.sin(y * 2.1 + t * 0.35) * 0.0015;
+    vel[ix + 1] += Math.sin(z * 2.3 + t * 0.28) * 0.0015;
+    vel[ix + 2] += Math.sin(x * 1.9 + t * 0.31) * 0.0015;
+    positions[ix] += vel[ix] * dt;
+    positions[ix + 1] += vel[ix + 1] * dt;
+    positions[ix + 2] += vel[ix + 2] * dt;
+    var f = age[i] / life[i];
+    var fade = f < 0.15 ? f / 0.15 : f > 0.7 ? (1 - f) / 0.3 : 1;
+    var r = baseCol[ix] * fade * 255;
+    var g = baseCol[ix + 1] * fade * 255;
+    var b = baseCol[ix + 2] * fade * 255;
 
-/**
- * Generate a random float between min and max (inclusive)
- */
-export function randomRange(min: number, max: number): number {
-  return Math.random() * (max - min) + min;
-}
+    var proj = project(x, y, z + cz);
+    var size = 1.5 + fade * 1.5;
 
-/**
- * Generate a random integer between min and max (inclusive)
- */
-export function randomInt(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-/**
- * Spherical to Cartesian coordinates
- */
-export function sphericalToCartesian(
-  radius: number,
-  theta: number, // polar angle (0 to PI)
-  phi: number // azimuthal angle (0 to 2*PI)
-): { x: number; y: number; z: number } {
-  const x = radius * Math.sin(theta) * Math.cos(phi);
-  const y = radius * Math.cos(theta);
-  const z = radius * Math.sin(theta) * Math.sin(phi);
-  return { x, y, z };
-}
-
-/**
- * Normalize a 3D vector
- */
-export function normalizeVector(v: { x: number; y: number; z: number }): { x: number; y: number; z: number } {
-  const len = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
-  if (len === 0) return { x: 0, y: 0, z: 0 };
-  return { x: v.x / len, y: v.y / len, z: v.z / len };
-}
-
-/**
- * Clamp a value between min and max
- */
-export function clamp(value: number, min: number, max: number): number {
-  return Math.max(min, Math.min(max, value));
-}
-
-/**
- * Linear interpolation
- */
-export function lerp(a: number, b: number, t: number): number {
-  return a + (b - a) * t;
-}
-
-// ============================================================================
-// Particle Data Structures
-// ============================================================================
-
-export interface ErosionParticle {
-  id: number;
-  position: THREE.Vector3;
-  velocity: THREE.Vector3;
-  age: number;
-  lifetime: number;
-  depth: number; // Recursion depth (0 = root)
-  parentId: number | null;
-  color: THREE.Color;
-  size: number;
-  active: boolean;
-}
-
-/**
- * Create a new erosion particle
- */
-export function createParticle(
-  id: number,
-  position: THREE.Vector3,
-  velocity: THREE.Vector3,
-  depth: number,
-  config: ErosionConfig,
-  parentId: number | null = null
-): ErosionParticle {
-  const lifetime = randomRange(config.particleLifetime * 0.5, config.particleLifetime * 1.5);
-  const hue = config.hue + randomRange(-15, 15);
-  const color = hslToThreeColor(hue, config.saturation, config.brightness);
-  const size = randomRange(0.02, 0.08) * (1 - depth / config.maxRecursionDepth);
-
-  return {
-    id,
-    position: position.clone(),
-    velocity: velocity.clone(),
-    age: 0,
-    lifetime,
-    depth,
-    parentId,
-    color,
-    size,
-    active: true,
-  };
-}
-
-// ============================================================================
-// Erosion Logic
-// ============================================================================
-
-/**
- * Update a single particle's state based on time delta
- */
-export function updateParticle(
-  particle: ErosionParticle,
-  dt: number,
-  config: ErosionConfig
-): void {
-  if (!particle.active) return;
-
-  particle.age += dt;
-
-  // Update position based on velocity
-  particle.position.add(particle.velocity.clone().multiplyScalar(dt));
-
-  // Apply slight drag to slow particles over time
-  particle.velocity.multiplyScalar(1 - dt * 2);
-
-  // Add slight random drift for organic feel
-  particle.position.x += (Math.random() - 0.5) * dt * 0.05;
-  particle.position.y += (Math.random() - 0.5) * dt * 0.05;
-  particle.position.z += (Math.random() - 0.5) * dt * 0.05;
-
-  // Deactivate if lifetime exceeded or too far from center
-  const distanceFromCenter = particle.position.length();
-  if (particle.age >= particle.lifetime || distanceFromCenter > config.maxRadius) {
-    particle.active = false;
+    ctx.fillStyle = "rgba(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + "," + fade + ")";
+    ctx.beginPath();
+    ctx.arc(proj.x, proj.y, size, 0, Math.PI * 2);
+    ctx.fill();
   }
 }
 
-/**
- * Determine if a particle should spawn a child particle
- */
-export function shouldSpawnChild(
-  particle: ErosionParticle,
-  config: ErosionConfig
-): boolean {
-  if (particle.depth >= config.maxRecursionDepth) return false;
-  if (Math.random() > config.spawnProbability) return false;
-  if (particle.age < particle.lifetime * 0.3) return false; // Don't spawn too early
-  return true;
+function tick() {
+  if (!running) return;
+  var now = Date.now();
+  var dt = Math.min((now - clock) / 1000, 0.05);
+  clock = now;
+  step(dt, clock / 1000);
+  requestAnimationFrame(tick);
 }
 
-/**
- * Create a child particle from a parent
- */
-export function spawnChildParticle(
-  parent: ErosionParticle,
-  id: number,
-  config: ErosionConfig
-): ErosionParticle {
-  // Direction is roughly the parent's velocity with some randomness
-  const direction = parent.velocity.clone().normalize();
-  direction.x += (Math.random() - 0.5) * 0.5;
-  direction.y += (Math.random() - 0.5) * 0.5;
-  direction.z += (Math.random() - 0.5) * 0.5;
-  direction.normalize();
+document.addEventListener("visibilitychange", function () {
+  running = !document.hidden;
+  if (running && !reduced) {
+    clock = Date.now();
+    requestAnimationFrame(tick);
+  }
+});
 
-  const speed = parent.velocity.length() * randomRange(0.6, 0.9);
-  const velocity = direction.multiplyScalar(speed);
-
-  return createParticle(id, parent.position.clone(), velocity, parent.depth + 1, config, parent.id);
+if (reduced) {
+  step(0.016, 0);
+} else {
+  requestAnimationFrame(tick);
 }
+</script>
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6W10sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiIifQ==
+</body>
+</html>`;
