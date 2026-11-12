@@ -68,3 +68,4 @@ postgres-data/
 .env*
 backups/
 data/
+.env.production
