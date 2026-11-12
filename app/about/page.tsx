@@ -1,16 +1,13 @@
 "use client";
 
-import RecursiveErosionBackground from "../../components/ui/recursive-erosion";
-
 export default function About() {
   return (
     <section className="py-24 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
-            <div className="w-full aspect-square rounded-2xl overflow-hidden border border-bg-secondary">
-              <RecursiveErosionBackground mode="dark" className="h-full w-full" />
-            </div>
+            {/* Pure CSS gradient panel — zero JS, zero 3D, zero iframes */}
+            <div className="w-full aspect-square rounded-2xl border border-bg-secondary bg-linear-to-br from-bg-primary via-bg-secondary to-bg-primary" />
           </div>
           <div>
             <span className="mono block mb-4">About</span>

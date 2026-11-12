@@ -1,26 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { ArrowRight, Cpu, Server, BookOpen } from "lucide-react";
-
-const RecursiveErosionBackground = dynamic(
-  () => import("../components/ui/recursive-erosion"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="absolute inset-0 w-full h-full bg-linear-to-br from-bg-primary via-bg-secondary to-bg-primary" />
-    ),
-  }
-);
 
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-24">
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <RecursiveErosionBackground mode="dark" className="h-full w-full" />
-      </div>
-
       <div className="relative z-10 px-4 max-w-5xl mx-auto">
         <span className="mono mb-4 block text-gold font-semibold tracking-wider uppercase text-sm">
           Take Back Your Time
