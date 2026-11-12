@@ -69,3 +69,4 @@ postgres-data/
 backups/
 data/
 .env.production
+lighthouse-results/
