@@ -16,6 +16,10 @@ body {
   min-height: 100vh;
 }
 
+html {
+  -webkit-text-size-adjust: auto;
+}
+
 .mono {
   font-family: var(--font-mono);
   letter-spacing: 0.2em;
