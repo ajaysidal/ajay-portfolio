@@ -33,3 +33,5 @@ next.log
 ! .env.build
 ! .env.build
 backups/
+backups
+*.tar.gz
