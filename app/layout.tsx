@@ -3,7 +3,6 @@ import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "../components/LayoutWrapper";
 import BackToTop from "../components/BackToTop";
-import Hero3D from "../components/Hero3D";
 
 const heading = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -271,7 +270,6 @@ export default function RootLayout({
       <body className="font-body bg-bg-primary text-text-primary antialiased overflow-x-hidden">
         <LayoutWrapper>{children}</LayoutWrapper>
         <BackToTop />
-        <Hero3D />
       </body>
     </html>
   );
