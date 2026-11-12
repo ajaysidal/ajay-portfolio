@@ -32,3 +32,4 @@ next.log
 *.swp
 ! .env.build
 ! .env.build
+backups/
