@@ -10,7 +10,11 @@ export default function Hero3DBackground() {
 
   return (
     <div className="absolute inset-0 z-0">
-      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+      <Canvas
+        className="absolute inset-0 w-full h-full"
+        camera={{ position: [0, 0, 5], fov: 45 }}
+        gl={{ antialias: true }}
+      >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
         <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
