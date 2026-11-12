@@ -126,7 +126,7 @@ for (var i = 0; i < MAX; i++) seedSurface(i);
 
 var clock = Date.now();
 var running = true;
-var cx, cy, cz;
+var cx, cy, cz = 0;
 
 function project(x, y, z) {
   var fov = 500;
@@ -205,7 +205,7 @@ if (reduced) {
 } else {
   requestAnimationFrame(tick);
 }
-</script>
 //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6W10sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiIifQ==
+</script>
 </body>
 </html>`;
