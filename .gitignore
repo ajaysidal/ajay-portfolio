@@ -67,3 +67,4 @@ ollama-data/
 postgres-data/
 .env*
 backups/
+data/
