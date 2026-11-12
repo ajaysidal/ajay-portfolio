@@ -26,7 +26,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  icon: "/favicon.ico",
+  icons: { icon: "/favicon.ico" },
   title: "Ajay Sidal — Technology & Operations Leader | Creative Technologist",
   description: "12+ years of cross-industry experience across banking, healthcare, logistics, and automotive. Expert in web development, system infrastructure, and orchestrating full-scale operations and marketing automation through AI-driven workflows.",
   keywords: [
